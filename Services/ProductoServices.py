@@ -1,5 +1,5 @@
 from flask import current_app
-
+from Models.Producto import Producto
 class ProductoServices:
 
     def add(data):
@@ -87,4 +87,6 @@ class ProductoServices:
 
         c.close()
 
-        return data
+        x = [ Producto (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Detalle_Pedido import Detalle_Pedido
 
 class Detalle_PedidoServices:
 
@@ -79,4 +80,6 @@ class Detalle_PedidoServices:
 
         c.close()
 
-        return data
+        x = [ Detalle_Pedido (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

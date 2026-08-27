@@ -1,4 +1,6 @@
 from flask import current_app
+import uuid
+from Models.Usuario import Usuario
 
 class UsuarioServices:
 
@@ -18,7 +20,7 @@ class UsuarioServices:
         """
 
         values = (
-            data["USU_UUID"],
+            uuid.uuid4(),
             data["USU_NOMBRE"],
             data["USU_USUARIO"],
             data["USU_CONTRASENA"],
@@ -83,4 +85,8 @@ class UsuarioServices:
 
         c.close()
 
-        return data
+        x = [ Usuario (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x
+
+

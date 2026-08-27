@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Pago import Pago
 
 class PagoServices:
 
@@ -87,4 +88,6 @@ class PagoServices:
 
         c.close()
 
-        return data
+        x = [ Pago (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

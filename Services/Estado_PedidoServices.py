@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Estado_Pedido import Estado_Pedido
 
 class Estado_PedidoServices:
 
@@ -75,4 +76,6 @@ class Estado_PedidoServices:
 
         c.close()
 
-        return data
+        x = [ Estado_Pedido (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

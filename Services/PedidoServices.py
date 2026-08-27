@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Pedido import Pedido
 
 class PedidoServices:
 
@@ -95,4 +96,6 @@ class PedidoServices:
 
         c.close()
 
-        return data
+        x = [ Pedido (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Categoria import Categoria
 
 class CategoriaServices:
 
@@ -79,4 +80,6 @@ class CategoriaServices:
 
         c.close()
 
-        return data
+        x = [ Categoria (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

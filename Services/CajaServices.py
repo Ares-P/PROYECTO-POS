@@ -1,5 +1,5 @@
 from flask import current_app
-
+from Models.Caja import Caja
 class CajaServices:
 
     def add(data):
@@ -89,6 +89,6 @@ class CajaServices:
 
         data = c.fetchall()
 
-        c.close()
+        x = [ Caja (w[0], w[1], w[2], w[3], w[4], w[5], w[6],w[7] ) for w in data]
 
-        return data
+        return x

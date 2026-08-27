@@ -1,4 +1,5 @@
 from flask import current_app
+from Models.Movimiento_Caja import Movimiento_Caja
 
 class Movimiento_CajaServices:
 
@@ -83,4 +84,6 @@ class Movimiento_CajaServices:
 
         c.close()
 
-        return data
+        x = [ Movimiento_Caja (w[0], w[1], w[2], w[3]).to_dict() for w in data]
+
+        return x

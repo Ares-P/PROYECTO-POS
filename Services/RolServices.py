@@ -1,4 +1,6 @@
 from flask import current_app
+import uuid
+from Models.Rol import Rol
 
 class RolServices:
 
@@ -16,7 +18,7 @@ class RolServices:
         """
 
         values = (
-            data["ROL_UUID"],
+            uuid.uuid4(),
             data["ROL_NOMBRE"],
             data["ROL_DESCRIPCION"]
         )
@@ -75,4 +77,6 @@ class RolServices:
 
         c.close()
 
-        return data
+        x = [ Rol (w[0], w[1], w[2], w[3]).to_dict for w in data]
+
+        return x
