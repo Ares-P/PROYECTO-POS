@@ -5,6 +5,7 @@ from Models.Rol import Rol
 class RolServices:
 
     def add(data):
+        uuid_rol = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,16 +19,18 @@ class RolServices:
         """
 
         values = (
-            uuid.uuid4(),
-            data["ROL_NOMBRE"],
-            data["ROL_DESCRIPCION"]
+            uuid_rol,
+            data["nombre"],
+            data["descripcion"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_rol, "Nombre": data["nombre"], "Descripcion": data["descripcion"]}
+        return data
 
 
     def delete(id):
@@ -77,6 +80,6 @@ class RolServices:
 
         c.close()
 
-        x = [ Rol (w[0], w[1], w[2], w[3]).to_dict for w in data]
+        x = [ Rol (w[0], w[1], w[2], w[3]).to_dict() for w in data]
 
         return x

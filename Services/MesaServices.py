@@ -1,4 +1,5 @@
 from flask import current_app
+import uuid
 from Models.Mesa import Mesa
 
 class MesaServices:

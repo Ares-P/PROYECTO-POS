@@ -1,4 +1,5 @@
 from flask import current_app
+import uuid
 from Models.Metodo_pago import Metodo_pago
 
 class Metodo_pagoServices:

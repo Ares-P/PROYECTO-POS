@@ -1,6 +1,6 @@
 class Pedido:
 
-    def __init__(self, PED_ID, PED_UUID, PED_DESCUENTO, PED_IMPUESTO, PED_TOTAL, PED_FECHA_HORA, PED_NUMERO_ORDEN, PED_METODO_ENTREGA, PED_SUBTOTAL ):
+    def __init__(self, PED_ID, PED_UUID, PED_DESCUENTO, PED_IMPUESTO, PED_TOTAL, PED_FECHA_HORA, PED_NUMERO_ORDEN, PED_METODO_ENTREGA, PED_SUBTOTAL, PED_USU_ID, PED_MES_ID,  PED_EST_PED_ID ):
         self.PED_ID                 = PED_ID
         self.PED_UUID               = PED_UUID
         self.PED_DESCUENTO          = PED_DESCUENTO
@@ -10,6 +10,9 @@ class Pedido:
         self.PED_NUMERO_ORDEN       = PED_NUMERO_ORDEN
         self.PED_METODO_ENTREGA     = PED_METODO_ENTREGA
         self.PED_SUBTOTAL           = PED_SUBTOTAL
+        self.PED_USU_ID             = PED_USU_ID
+        self.PED_MES_ID             = PED_MES_ID
+        self.PED_EST_PED_ID         = PED_EST_PED_ID
 
 
 
@@ -23,5 +26,8 @@ class Pedido:
                 "PED_FECHA_HORA"        : self.PED_FECHA_HORA,
                 "PED_NUMERO_ORDEN"      : self.PED_NUMERO_ORDEN,
                 "PED_METODO_ENTREGA"    : self.PED_METODO_ENTREGA,
-                "PED_SUBTOTAL"          : self.PED_SUBTOTAL
+                "PED_SUBTOTAL"          : self.PED_SUBTOTAL,
+                "PED_USU_ID"            : self.PED_USU_ID,
+                "PED_MES_ID"            : self.PED_MES_ID,
+                "PED_EST_PED_ID"        : self.PED_EST_PED_ID
             }

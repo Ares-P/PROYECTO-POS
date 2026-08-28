@@ -5,6 +5,7 @@ from Models.Usuario import Usuario
 class UsuarioServices:
 
     def add(data):
+        uuid_rol = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -21,17 +22,17 @@ class UsuarioServices:
 
         values = (
             uuid.uuid4(),
-            data["USU_NOMBRE"],
-            data["USU_USUARIO"],
-            data["USU_CONTRASENA"],
-            data["USU_ESTADO"]
+            data["nombre"],
+            data["descripcion"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid.uuid4, "Nombre": data["nombre"], "Descripcion": data["descripcion"]}
+        return data
 
 
     def delete(id):

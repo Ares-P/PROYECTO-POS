@@ -1,4 +1,5 @@
 from flask import current_app
+import uuid
 from Models.Detalle_Pedido import Detalle_Pedido
 
 class Detalle_PedidoServices:

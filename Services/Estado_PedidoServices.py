@@ -1,4 +1,5 @@
 from flask import current_app
+import uuid
 from Models.Estado_Pedido import Estado_Pedido
 
 class Estado_PedidoServices:
