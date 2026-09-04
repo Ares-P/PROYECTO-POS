@@ -10,5 +10,9 @@ class Config:
     MYSQL_DB        = os.getenv('MYSQL_DB')
     MYSQL_PORT      = int(os.getenv('MYSQL_PORT', 3306)) 
 
+    MYSQL_SSL ={
+        "ca": "/etc/secrets/ca.pem"
+    }
+
 # Esta clase sirve para cargar la configuración de la base 
 # de datos desde un archivo .env y almacenarla en variables de clase.
