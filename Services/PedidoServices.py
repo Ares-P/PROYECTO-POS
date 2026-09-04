@@ -5,6 +5,7 @@ from Models.Pedido import Pedido
 class PedidoServices:
 
     def add(data):
+        uuid_ped = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -23,7 +24,7 @@ class PedidoServices:
         """
 
         values = (
-            data["PED_UUID"],
+            uuid_ped,
             data["PED_DESCUENTO"],
             data["PED_IMPUESTO"],
             data["PED_TOTAL"],
@@ -35,9 +36,12 @@ class PedidoServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_ped, "PED_DESCUENTO": data["PED_DESCUENTO"], "PED_IMPUESTO": data["PED_IMPUESTO"], "PED_TOTAL": data["PED_TOTAL"], "PED_FECHA_HORA": data["PED_FECHA_HORA"], "PED_NUMERO_ORDEN": data["PED_NUMERO_ORDEN"], "PED_METODO_ENTREGA": data["PED_METODO_ENTREGA"], "PED_SUBTOTAL": data["PED_SUBTOTAL"]}
+        return data
+      
 
 
     def delete(id):

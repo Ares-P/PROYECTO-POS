@@ -5,7 +5,7 @@ from Models.Usuario import Usuario
 class UsuarioServices:
 
     def add(data):
-        uuid_rol = uuid.uuid4()
+        uuid_usu = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -21,9 +21,11 @@ class UsuarioServices:
         """
 
         values = (
-            uuid.uuid4(),
-            data["nombre"],
-            data["descripcion"]
+            uuid_usu,
+            data["USU_NOMBRE"],
+            data["USU_USUARIO"],
+            data["USU_CONTRASENA"],
+            data["USU_ESTADO"]
         )
 
         c.execute(query, values)
@@ -31,8 +33,9 @@ class UsuarioServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid.uuid4, "Nombre": data["nombre"], "Descripcion": data["descripcion"]}
+        data = { "id":id, "uuid": uuid_usu, "USU_NOMBRE": data["USU_NOMBRE"], "USU_USUARIO": data["USU_USUARIO"], "USU_CONTRASENA": data["USU_CONTRASENA"], "USU_ESTADO": data["USU_ESTADO"]}
         return data
+        
 
 
     def delete(id):

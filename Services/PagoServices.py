@@ -5,6 +5,7 @@ from Models.Pago import Pago
 class PagoServices:
 
     def add(data):
+        uuid_pag = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -21,7 +22,7 @@ class PagoServices:
         """
 
         values = (
-            data["PAG_UUID"],
+            uuid_pag,
             data["PAG_ID_PAGO"],
             data["PAG_REFERENCIA"],
             data["PAG_ESTADO"],
@@ -31,9 +32,12 @@ class PagoServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_pag, "PAG_ID_PAGO": data["PAG_ID_PAGO"], "PAG_REFERENCIA": data["PAG_REFERENCIA"], "PAG_ESTADO": data["PAG_ESTADO"], "PAG_FECHA_PAGO": data["PAG_FECHA_PAGO"], "PAG_VALOR_PAGADO": data["PAG_VALOR_PAGADO"]}
+        return data
+       
 
 
     def delete(id):

@@ -5,6 +5,7 @@ from Models.Metodo_pago import Metodo_pago
 class Metodo_pagoServices:
 
     def add(data):
+        uuid_met_pag = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -19,7 +20,7 @@ class Metodo_pagoServices:
         """
 
         values = (
-            data["MET_PAG_UUID"],
+            uuid_met_pag,
             data["MET_PAG_NOMBRE"],
             data["MET_PAG_ESTADO"],
             data["MET_PAG_DESCRIPCION"]
@@ -27,9 +28,12 @@ class Metodo_pagoServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_met_pag, "MET_PAG_NOMBRE": data["MET_PAG_NOMBRE"], "MET_PAG_ESTADO": data["MET_PAG_ESTADO"], "MET_PAG_DESCRIPCION": data["MET_PAG_DESCRIPCION"]}
+        return data
+
 
 
     def delete(id):

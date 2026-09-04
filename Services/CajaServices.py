@@ -4,6 +4,7 @@ from Models.Caja import Caja
 class CajaServices:
 
     def add(data):
+        uuid_caj = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -21,7 +22,7 @@ class CajaServices:
         """
 
         values = (
-            data["CAJ_UUID"],
+            uuid_caj,
             data["CAJ_ID_CAJA"],
             data["CAJ_FECHA_APERTURA"],
             data["CAJ_ESTADO"],
@@ -32,9 +33,12 @@ class CajaServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_caj, "CAJ_ID_CAJA": data["CAJ_ID_CAJA"], "CAJ_FECHA_APERTURA": data["CAJ_FECHA_APERTURA"], "CAJ_ESTADO": data["CAJ_ESTADO"], "CAJ_SALDO_INICIAL": data["CAJ_SALDO_INICIAL"], "CAJ_SALDO_FINAL": data["CAJ_SALDO_FINAL"], "CAJ_FECHA_CIERRE": data["CAJ_FECHA_CIERRE"]}
+        return data
+        
 
 
     def delete(id):

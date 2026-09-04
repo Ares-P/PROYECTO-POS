@@ -4,6 +4,7 @@ from Models.Producto import Producto
 class ProductoServices:
 
     def add(data):
+        uuid_pro = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -20,7 +21,7 @@ class ProductoServices:
         """
 
         values = (
-            data["PRO_UUID"],
+            uuid_pro,
             data["PRO_NOMBRE"],
             data["PRO_DESCRIPCION"],
             data["PRO_PRECIO"],
@@ -30,10 +31,12 @@ class ProductoServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
-
+        data = { "id":id, "uuid": uuid_pro, "PRO_NOMBRE": data["PRO_NOMBRE"], "PRO_DESCRIPCION": data["PRO_DESCRIPCION"], "PRO_PRECIO": data["PRO_PRECIO"], "PRO_DISPONIBLE": data["PRO_DISPONIBLE"], "PRO_ESTADO": data["PRO_ESTADO"]}
+        return data
+     
 
     def delete(id):
         c = current_app.mysql.connection.cursor()

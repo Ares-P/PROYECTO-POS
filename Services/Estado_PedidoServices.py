@@ -5,6 +5,7 @@ from Models.Estado_Pedido import Estado_Pedido
 class Estado_PedidoServices:
 
     def add(data):
+        uuid_est_ped = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,16 +19,19 @@ class Estado_PedidoServices:
         """
 
         values = (
-            data["EST_PED_UUID"],
+            uuid_est_ped,
             data["EST_PED_NOMBRE"],
             data["EST_PED_DESCRIPCION"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_est_ped, "EST_PED_NOMBRE": data["EST_PED_NOMBRE"], "EST_PED_DESCRIPCION": data["EST_PED_DESCRIPCION"]}
+        return data
+       
 
 
     def delete(id):

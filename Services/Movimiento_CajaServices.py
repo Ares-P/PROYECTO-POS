@@ -5,6 +5,7 @@ from Models.Movimiento_Caja import Movimiento_Caja
 class Movimiento_CajaServices:
 
     def add(data):
+        uuid_mov_caj = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -20,7 +21,7 @@ class Movimiento_CajaServices:
         """
 
         values = (
-            data["MOV_CAJ_UUID"],
+            uuid_mov_caj,
             data["MOV_CAJ_TIPO_MOVIMIENTO"],
             data["MOV_CAJ_MONTO"],
             data["MOV_CAJ_DESCRIPCION"],
@@ -29,9 +30,12 @@ class Movimiento_CajaServices:
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_mov_caj, "MOV_CAJ_TIPO_MOVIMIENTO": data["MOV_CAJ_TIPO_MOVIMIENTO"], "MOV_CAJ_MONTO": data["MOV_CAJ_MONTO"], "MOV_CAJ_DESCRIPCION": data["MOV_CAJ_DESCRIPCION"], "MOV_CAJ_FECHA_HORA": data["MOV_CAJ_FECHA_HORA"]}
+        return data
+    
 
 
     def delete(id):
