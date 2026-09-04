@@ -11,7 +11,7 @@ class UsuarioControllers:
     
     def consult():
         data = UsuarioServices.consult()
-        return jsonify({"Mensaje": "listado", "data": data}), 200
+        return jsonify(data), 200
 
    
     def create():
