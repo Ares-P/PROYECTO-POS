@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.Estado_PedidoServices import Estado_PedidoServices
+from flask import Blueprint
+from Controllers.Estado_PedidoControllers import Estado_PedidoControllers
 
 estado_pedido_bp = Blueprint("Estado_Pedido", __name__)
 
 
 @estado_pedido_bp.route("/", methods=["GET"])
 def consult():
-    data = Estado_PedidoServices.consult()
-    return jsonify(data)
+    return Estado_PedidoControllers.consult()
 
 
 @estado_pedido_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = Estado_PedidoServices.add(data)
-    return jsonify(result)
+    return Estado_PedidoControllers.create()
 
 
 @estado_pedido_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = Estado_PedidoServices.update(id, data)
-    return jsonify(result)
+    return Estado_PedidoControllers.update(id)
 
 
 @estado_pedido_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = Estado_PedidoServices.delete(id)
-    return jsonify(result)
+    return Estado_PedidoControllers.delete(id)

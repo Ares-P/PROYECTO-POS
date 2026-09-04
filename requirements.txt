@@ -4,7 +4,6 @@ python-dotenv
 gunicorn
 mysqlclient
 
-
 # flask: Crear aplicaciones web (API REST)
 # flask-mysqldb: conectar con bases de datos MySQL
 # python-dotenv: cargar variables de entorno desde un archivo .env

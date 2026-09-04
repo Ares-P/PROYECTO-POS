@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.UsuarioServices import UsuarioServices
+from flask import Blueprint
+from Controllers.UsuarioControllers import UsuarioControllers
 
 usuario_bp = Blueprint("Usuario", __name__)
 
 
 @usuario_bp.route("/", methods=["GET"])
 def consult():
-    data = UsuarioServices.consult()
-    return data
+    return UsuarioControllers.consult()
 
 
 @usuario_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = UsuarioServices.add(data)
-    return result
+    return UsuarioControllers.create()
 
 
 @usuario_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = UsuarioServices.update(id, data)
-    return jsonify(result)
+    return UsuarioControllers.update(id)
 
 
 @usuario_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = UsuarioServices.delete(id)
-    return jsonify(result)
+    return UsuarioControllers.delete(id)
