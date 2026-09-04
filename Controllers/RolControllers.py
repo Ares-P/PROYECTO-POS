@@ -32,9 +32,19 @@ class RolControllers:
         
 
     def update(id):
-        body_data = request.get_json()
+        body_data = request.get_json(silent=True)
+    
+        if not body_data:
+            return jsonify({
+                "mensaje": "El cuerpo está vacío o es inválido"
+            }), 400
+    
         result = RolServices.update(id, body_data)
-        return jsonify({"mensaje":"data"}), 200
+    
+        return jsonify({
+            "mensaje": "Se actualizó correctamente",
+            "data": result
+        }), 200
 
     def delete(id):
         result = RolServices.delete(id)
