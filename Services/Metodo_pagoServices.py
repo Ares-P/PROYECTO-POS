@@ -21,9 +21,9 @@ class Metodo_pagoServices:
 
         values = (
             uuid_met_pag,
-            data["MET_PAG_NOMBRE"],
-            data["MET_PAG_ESTADO"],
-            data["MET_PAG_DESCRIPCION"]
+            data["nombre"],
+            data["estado"],
+            data["descripcion"]
         )
 
         c.execute(query, values)
@@ -61,9 +61,9 @@ class Metodo_pagoServices:
         """
 
         values = (
-            data["MET_PAG_NOMBRE"],
-            data["MET_PAG_ESTADO"],
-            data["MET_PAG_DESCRIPCION"],
+            data["nombre"],
+            data["estado"],
+            data["descripcion"],
             id
         )
 

@@ -21,9 +21,9 @@ class CategoriaServices:
 
         values = (
             uuid_cat,
-            data["CAT_NOMBRE"],
-            data["CAT_DESCRIPCION"],
-            data["CAT_ESTADO"]
+            data["nombre"],
+            data["descripcion"],
+            data["estado"]
         )
 
         c.execute(query, values)
@@ -61,9 +61,9 @@ class CategoriaServices:
         """
 
         values = (
-            data["CAT_NOMBRE"],
-            data["CAT_DESCRIPCION"],
-            data["CAT_ESTADO"],
+            data["nombre"],
+            data["descripcion"],
+            data["estado"],
             id
         )
 

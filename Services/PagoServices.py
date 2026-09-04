@@ -23,11 +23,11 @@ class PagoServices:
 
         values = (
             uuid_pag,
-            data["PAG_ID_PAGO"],
-            data["PAG_REFERENCIA"],
-            data["PAG_ESTADO"],
-            data["PAG_FECHA_PAGO"],
-            data["PAG_VALOR_PAGADO"]
+            data["id_pago"],
+            data["referencia"],
+            data["estado"],
+            data["fecha_pago"],
+            data["valor_pagado"]
         )
 
         c.execute(query, values)
@@ -67,11 +67,11 @@ class PagoServices:
         """
 
         values = (
-            data["PAG_ID_PAGO"],
-            data["PAG_REFERENCIA"],
-            data["PAG_ESTADO"],
-            data["PAG_FECHA_PAGO"],
-            data["PAG_VALOR_PAGADO"],
+            data["id_pago"],
+            data["referencia"],
+            data["estado"],
+            data["fecha_pago"],
+            data["valor_pagado"],
             id
         )
 

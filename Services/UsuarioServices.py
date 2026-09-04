@@ -22,10 +22,10 @@ class UsuarioServices:
 
         values = (
             uuid_usu,
-            data["USU_NOMBRE"],
-            data["USU_USUARIO"],
-            data["USU_CONTRASENA"],
-            data["USU_ESTADO"]
+            data["nombre"],
+            data["usuario"],
+            data["contrasena"],
+            data["estado"]
         )
 
         c.execute(query, values)
@@ -64,10 +64,10 @@ class UsuarioServices:
         """
 
         values = (
-            data["USU_NOMBRE"],
-            data["USU_USUARIO"],
-            data["USU_CONTRASENA"],
-            data["USU_ESTADO"],
+            data["nombre"],
+            data["usuario"],
+            data["contraseña"],
+            data["estado"],
             id
         )
 

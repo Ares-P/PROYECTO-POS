@@ -22,10 +22,10 @@ class Movimiento_CajaServices:
 
         values = (
             uuid_mov_caj,
-            data["MOV_CAJ_TIPO_MOVIMIENTO"],
-            data["MOV_CAJ_MONTO"],
-            data["MOV_CAJ_DESCRIPCION"],
-            data["MOV_CAJ_FECHA_HORA"]
+            data["tipo_movimiento"],
+            data["monto"],
+            data["descripcion"],
+            data["fecha_hora"]
         )
 
         c.execute(query, values)
@@ -64,10 +64,10 @@ class Movimiento_CajaServices:
         """
 
         values = (
-            data["MOV_CAJ_TIPO_MOVIMIENTO"],
-            data["MOV_CAJ_MONTO"],
-            data["MOV_CAJ_DESCRIPCION"],
-            data["MOV_CAJ_FECHA_HORA"],
+            data["tipo_movimiento"],
+            data["monto"],
+            data["descripcion"],
+            data["fecha_hora"],
             id
         )
 

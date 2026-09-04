@@ -22,11 +22,11 @@ class ProductoServices:
 
         values = (
             uuid_pro,
-            data["PRO_NOMBRE"],
-            data["PRO_DESCRIPCION"],
-            data["PRO_PRECIO"],
-            data["PRO_DISPONIBLE"],
-            data["PRO_ESTADO"]
+            data["nombre"],
+            data["descripcion"],
+            data["precio"],
+            data["diponible"],
+            data["estado"]
         )
 
         c.execute(query, values)
@@ -65,11 +65,11 @@ class ProductoServices:
         """
 
         values = (
-            data["PRO_NOMBRE"],
-            data["PRO_DESCRIPCION"],
-            data["PRO_PRECIO"],
-            data["PRO_DISPONIBLE"],
-            data["PRO_ESTADO"],
+            data["nombre"],
+            data["descripcion"],
+            data["precio"],
+            data["dispoible"],
+            data["estado"],
             id
         )
 

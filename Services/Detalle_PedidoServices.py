@@ -21,9 +21,9 @@ class Detalle_PedidoServices:
 
         values = (
             uuid_det_ped,
-            data["DET_PED_CANTIDAD"],
-            data["DET_PED_PRECIO_UNITARIO"],
-            data["DET_PED_SUBTOTAL"]
+            data["cantidad"],
+            data["precio_unitario"],
+            data["subtotal"]
         )
 
         c.execute(query, values)
@@ -61,9 +61,9 @@ class Detalle_PedidoServices:
         """
 
         values = (
-            data["DET_PED_CANTIDAD"],
-            data["DET_PED_PRECIO_UNITARIO"],
-            data["DET_PED_SUBTOTAL"],
+            data["cantidad"],
+            data["precio_unitario"],
+            data["subtotal"],
             id
         )
 

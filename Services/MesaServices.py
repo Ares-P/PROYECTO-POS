@@ -21,9 +21,9 @@ class MesaServices:
 
         values = (
             uuid_mes,
-            data["MES_NOMBRE"],
-            data["MES_CAPACIDAD"],
-            data["MES_ESTADO"]
+            data["nombre"],
+            data["capacidad"],
+            data["estado"]
         )
 
         c.execute(query, values)
@@ -61,9 +61,9 @@ class MesaServices:
         """
 
         values = (
-            data["MES_NOMBRE"],
-            data["MES_CAPACIDAD"],
-            data["MES_ESTADO"],
+            data["nombre"],
+            data["capacidad"],
+            data["estado"],
             id
         )
 

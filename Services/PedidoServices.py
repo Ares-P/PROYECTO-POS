@@ -25,13 +25,13 @@ class PedidoServices:
 
         values = (
             uuid_ped,
-            data["PED_DESCUENTO"],
-            data["PED_IMPUESTO"],
-            data["PED_TOTAL"],
-            data["PED_FECHA_HORA"],
-            data["PED_NUMERO_ORDEN"],
-            data["PED_METODO_ENTREGA"],
-            data["PED_SUBTOTAL"]
+            data["descuento"],
+            data["impuesto"],
+            data["total"],
+            data["fecha_hora"],
+            data["numero_orden"],
+            data["metodo_entrega"],
+            data["subtotal"]
         )
 
         c.execute(query, values)
@@ -73,13 +73,13 @@ class PedidoServices:
         """
 
         values = (
-            data["PED_DESCUENTO"],
-            data["PED_IMPUESTO"],
-            data["PED_TOTAL"],
-            data["PED_FECHA_HORA"],
-            data["PED_NUMERO_ORDEN"],
-            data["PED_METODO_ENTREGA"],
-            data["PED_SUBTOTAL"],
+            data["descuento"],
+            data["impuesto"],
+            data["total"],
+            data["fecha_hora"],
+            data["numero_orden"],
+            data["metodo_entrega"],
+            data["subtotal"],
             id
         )
 

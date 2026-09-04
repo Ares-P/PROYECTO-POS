@@ -20,8 +20,8 @@ class Estado_PedidoServices:
 
         values = (
             uuid_est_ped,
-            data["EST_PED_NOMBRE"],
-            data["EST_PED_DESCRIPCION"]
+            data["nombre"],
+            data["descripcion"]
         )
 
         c.execute(query, values)
@@ -58,8 +58,8 @@ class Estado_PedidoServices:
         """
 
         values = (
-            data["EST_PED_NOMBRE"],
-            data["EST_PED_DESCRIPCION"],
+            data["nombre"],
+            data["descripcion"],
             id
         )
 

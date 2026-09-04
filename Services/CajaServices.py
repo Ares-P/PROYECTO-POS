@@ -23,12 +23,12 @@ class CajaServices:
 
         values = (
             uuid_caj,
-            data["CAJ_ID_CAJA"],
-            data["CAJ_FECHA_APERTURA"],
-            data["CAJ_ESTADO"],
-            data["CAJ_SALDO_INICIAL"],
-            data["CAJ_SALDO_FINAL"],
-            data["CAJ_FECHA_CIERRE"]
+            data["id_caja"],
+            data["fecha_apertura"],
+            data["estado"],
+            data["saldo_inicial"],
+            data["saldo_final"],
+            data["fecha_cierre"]
         )
 
         c.execute(query, values)
@@ -69,12 +69,12 @@ class CajaServices:
         """
 
         values = (
-            data["CAJ_ID_CAJA"],
-            data["CAJ_FECHA_APERTURA"],
-            data["CAJ_ESTADO"],
-            data["CAJ_SALDO_INICIAL"],
-            data["CAJ_SALDO_FINAL"],
-            data["CAJ_FECHA_CIERRE"],
+            data["id_caja"],
+            data["fecha_apertura"],
+            data["estado"],
+            data["saldo_inicial"],
+            data["saldo_final"],
+            data["fecha_cierre"],
             id
         )
 
