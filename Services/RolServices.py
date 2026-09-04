@@ -57,8 +57,8 @@ class RolServices:
         """
 
         values = (
-            data["ROL_NOMBRE"],
-            data["ROL_DESCRIPCION"],
+            data["nombre"],
+            data["descripcion"],
             id
         )
 
