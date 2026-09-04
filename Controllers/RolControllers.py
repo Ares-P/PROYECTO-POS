@@ -33,6 +33,16 @@ class RolControllers:
 
     def update(id):
         body_data = request.get_json(silent=True)
+
+        requeridos = ["nombre", "descripcion"]
+
+        falta = [ x for x in requeridos if x not in data ]
+
+        if len(falta) > 0:
+            return jsonify({"mensaje": f"Faltan parametros{falta}"}), 400
+        
+        x = RolServices.update(data)
+        return jsonify({"mensaje":"Se actualizo correctamente", "data":x}), 200
     
         if not body_data:
             return jsonify({
