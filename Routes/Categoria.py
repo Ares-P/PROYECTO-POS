@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.CategoriaServices import CategoriaServices
+from flask import Blueprint
+from Controllers.CategoriaControllers import CategoriaControllers
 
 categoria_bp = Blueprint("Categoria", __name__)
 
 
 @categoria_bp.route("/", methods=["GET"])
 def consult():
-    data = CategoriaServices.consult()
-    return jsonify(data)
+    return CategoriaControllers.consult()
 
 
 @categoria_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = CategoriaServices.add(data)
-    return jsonify(result)
+    return CategoriaControllers.create()
 
 
 @categoria_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = CategoriaServices.update(id, data)
-    return jsonify(result)
+    return CategoriaControllers.update(id)
 
 
 @categoria_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = CategoriaServices.delete(id)
-    return jsonify(result)
+    return CategoriaControllers.delete(id)

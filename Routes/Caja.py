@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.CajaServices import CajaServices
+from flask import Blueprint
+from Controllers.CajaControllers import CajaControllers
 
 caja_bp = Blueprint("Caja", __name__)
 
 
 @caja_bp.route("/", methods=["GET"])
 def consult():
-    data = CajaServices.consult()
-    return jsonify(data)
+    return CajaControllers.consult()
 
 
 @caja_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = CajaServices.add(data)
-    return jsonify(result)
+    return CajaControllers.create()
 
 
 @caja_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = CajaServices.update(id, data)
-    return jsonify(result)
+    return CajaControllers.update(id)
 
 
 @caja_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = CajaServices.delete(id)
-    return jsonify(result)
+    return CajaControllers.delete(id)

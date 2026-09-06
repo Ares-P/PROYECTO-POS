@@ -1,9 +1,11 @@
 from flask import current_app
+import uuid
 from Models.Categoria import Categoria
 
 class CategoriaServices:
 
     def add(data):
+        uuid_cat = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,17 +20,20 @@ class CategoriaServices:
         """
 
         values = (
-            data["CAT_UUID"],
-            data["CAT_NOMBRE"],
-            data["CAT_DESCRIPCION"],
-            data["CAT_ESTADO"]
+            uuid_cat,
+            data["nombre"],
+            data["descripcion"],
+            data["estado"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_cat, "CAT_NOMBRE": data["CAT_NOMBRE"], "CAT_DESCRIPCION": data["CAT_DESCRIPCION"], "CAT_ESTADO": data["CAT_ESTADO"]}
+        return data
+      
 
 
     def delete(id):
@@ -56,9 +61,9 @@ class CategoriaServices:
         """
 
         values = (
-            data["CAT_NOMBRE"],
-            data["CAT_DESCRIPCION"],
-            data["CAT_ESTADO"],
+            data["nombre"],
+            data["descripcion"],
+            data["estado"],
             id
         )
 

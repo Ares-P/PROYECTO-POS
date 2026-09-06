@@ -1,9 +1,11 @@
 from flask import current_app
+import uuid
 from Models.Detalle_Pedido import Detalle_Pedido
 
 class Detalle_PedidoServices:
 
     def add(data):
+        uuid_det_ped = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,17 +20,20 @@ class Detalle_PedidoServices:
         """
 
         values = (
-            data["DET_PED_UUID"],
-            data["DET_PED_CANTIDAD"],
-            data["DET_PED_PRECIO_UNITARIO"],
-            data["DET_PED_SUBTOTAL"]
+            uuid_det_ped,
+            data["cantidad"],
+            data["precio_unitario"],
+            data["subtotal"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_det_ped, "DET_PED_CANTIDAD": data["DET_PED_CANTIDAD"], "DET_PED_PRECIO_UNITARIO": data["DET_PED_PRECIO_UNITARIO"], "DET_PED_SUBTOTAL": data["DET_PED_SUBTOTAL"]}
+        return data
+       
 
 
     def delete(id):
@@ -56,9 +61,9 @@ class Detalle_PedidoServices:
         """
 
         values = (
-            data["DET_PED_CANTIDAD"],
-            data["DET_PED_PRECIO_UNITARIO"],
-            data["DET_PED_SUBTOTAL"],
+            data["cantidad"],
+            data["precio_unitario"],
+            data["subtotal"],
             id
         )
 

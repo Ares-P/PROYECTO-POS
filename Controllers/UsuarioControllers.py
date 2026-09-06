@@ -11,18 +11,12 @@ class UsuarioControllers:
     
     def consult():
         data = UsuarioServices.consult()
-        return jsonify({"Mensaje": "listado", "data": data}), 200
-
-    def consult_by_id(id):
-        data = UsuarioServices.consult_by_id(id)
-        if not data:
-            return jsonify({"Mensaje": "Usuario no encontrado"}), 404
-        return jsonify({"Mensaje": "Usuario encontrado", "data": data}), 200
+        return jsonify(data), 200
 
    
     def create():
         body_data = request.get_json()
-        result = UsuarioServices.create(body_data)
+        result = UsuarioServices.add(body_data)
         return jsonify({"Mensaje": "Usuario creado correctamente", "data": result}), 201
 
 
