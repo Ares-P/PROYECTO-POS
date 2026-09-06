@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.PagoServices import PagoServices
+from flask import Blueprint
+from Controllers.PagoControllers import PagoControllers
 
 pago_bp = Blueprint("Pago", __name__)
 
 
 @pago_bp.route("/", methods=["GET"])
 def consult():
-    data = PagoServices.consult()
-    return jsonify(data)
+    return PagoControllers.consult()
 
 
 @pago_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = PagoServices.add(data)
-    return jsonify(result)
+    return PagoControllers.create()
 
 
 @pago_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = PagoServices.update(id, data)
-    return jsonify(result)
+    return PagoControllers.update(id)
 
 
 @pago_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = PagoServices.delete(id)
-    return jsonify(result)
+    return PagoControllers.delete(id)

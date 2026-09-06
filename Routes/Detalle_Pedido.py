@@ -1,30 +1,24 @@
-from flask import Blueprint, request, jsonify
-from Services.Detalle_PedidoServices import Detalle_PedidoServices
+from flask import Blueprint
+from Controllers.Detalle_PedidoControllers import Detalle_PedidoControllers
 
 detalle_pedido_bp = Blueprint("Detalle_Pedido", __name__)
 
 
 @detalle_pedido_bp.route("/", methods=["GET"])
 def consult():
-    data = Detalle_PedidoServices.consult()
-    return jsonify(data)
+    return Detalle_PedidoControllers.consult()
 
 
 @detalle_pedido_bp.route("/", methods=["POST"])
 def add():
-    data = request.get_json()
-    result = Detalle_PedidoServices.add(data)
-    return jsonify(result)
+    return Detalle_PedidoControllers.create()
 
 
 @detalle_pedido_bp.route("/<int:id>", methods=["PUT"])
 def update(id):
-    data = request.get_json()
-    result = Detalle_PedidoServices.update(id, data)
-    return jsonify(result)
+    return Detalle_PedidoControllers.update(id)
 
 
 @detalle_pedido_bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    result = Detalle_PedidoServices.delete(id)
-    return jsonify(result)
+    return Detalle_PedidoControllers.delete(id)

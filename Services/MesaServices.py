@@ -1,9 +1,11 @@
 from flask import current_app
+import uuid
 from Models.Mesa import Mesa
 
 class MesaServices:
 
     def add(data):
+        uuid_mes = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,17 +20,20 @@ class MesaServices:
         """
 
         values = (
-            data["MES_UUID"],
-            data["MES_NOMBRE"],
-            data["MES_CAPACIDAD"],
-            data["MES_ESTADO"]
+            uuid_mes,
+            data["nombre"],
+            data["capacidad"],
+            data["estado"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_mes, "MES_NOMBRE": data["MES_NOMBRE"], "MES_CAPACIDAD": data["MES_CAPACIDAD"], "MES_ESTADO": data["MES_ESTADO"]}
+        return data
+       
 
 
     def delete(id):
@@ -56,9 +61,9 @@ class MesaServices:
         """
 
         values = (
-            data["MES_NOMBRE"],
-            data["MES_CAPACIDAD"],
-            data["MES_ESTADO"],
+            data["nombre"],
+            data["capacidad"],
+            data["estado"],
             id
         )
 

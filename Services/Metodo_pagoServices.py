@@ -1,9 +1,11 @@
 from flask import current_app
+import uuid
 from Models.Metodo_pago import Metodo_pago
 
 class Metodo_pagoServices:
 
     def add(data):
+        uuid_met_pag = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -18,17 +20,20 @@ class Metodo_pagoServices:
         """
 
         values = (
-            data["MET_PAG_UUID"],
-            data["MET_PAG_NOMBRE"],
-            data["MET_PAG_ESTADO"],
-            data["MET_PAG_DESCRIPCION"]
+            uuid_met_pag,
+            data["nombre"],
+            data["estado"],
+            data["descripcion"]
         )
 
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        id = c.lastrowid
         c.close()
 
-        return {"Mensaje": "Registro agregado correctamente"}
+        data = { "id":id, "uuid": uuid_met_pag, "MET_PAG_NOMBRE": data["MET_PAG_NOMBRE"], "MET_PAG_ESTADO": data["MET_PAG_ESTADO"], "MET_PAG_DESCRIPCION": data["MET_PAG_DESCRIPCION"]}
+        return data
+
 
 
     def delete(id):
@@ -56,9 +61,9 @@ class Metodo_pagoServices:
         """
 
         values = (
-            data["MET_PAG_NOMBRE"],
-            data["MET_PAG_ESTADO"],
-            data["MET_PAG_DESCRIPCION"],
+            data["nombre"],
+            data["estado"],
+            data["descripcion"],
             id
         )
 
