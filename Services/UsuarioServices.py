@@ -15,9 +15,10 @@ class UsuarioServices:
                 USU_NOMBRE,
                 USU_USUARIO,
                 USU_CONTRASENA,
-                USU_ESTADO
+                USU_ESTADO,
+                USU_ROL_ID
             )
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -25,7 +26,8 @@ class UsuarioServices:
             data["nombre"],
             data["usuario"],
             data["contrasena"],
-            data["estado"]
+            data["estado"],
+            data["rol_id"]
         )
 
         c.execute(query, values)
@@ -33,7 +35,7 @@ class UsuarioServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_usu, "USU_NOMBRE": data["USU_NOMBRE"], "USU_USUARIO": data["USU_USUARIO"], "USU_CONTRASENA": data["USU_CONTRASENA"], "USU_ESTADO": data["USU_ESTADO"]}
+        data = { "id":id, "uuid": uuid_usu, "nombre": data["nombre"], "usuario": data["usuario"], "contraseña": data["contraseña"], "estado": data["estado"], "rol_id": data["rol_id"]}
         return data
         
 

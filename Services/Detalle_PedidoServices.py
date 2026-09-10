@@ -31,7 +31,7 @@ class Detalle_PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_det_ped, "DET_PED_CANTIDAD": data["DET_PED_CANTIDAD"], "DET_PED_PRECIO_UNITARIO": data["DET_PED_PRECIO_UNITARIO"], "DET_PED_SUBTOTAL": data["DET_PED_SUBTOTAL"]}
+        data = { "id":id, "uuid": uuid_det_ped, "cantidad": data["cantidad"], "precio_unitario": data["precio_unitario"], "subtotal": data["subtotal"]}
         return data
        
 

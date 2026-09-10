@@ -36,7 +36,7 @@ class CajaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_caj, "CAJ_ID_CAJA": data["CAJ_ID_CAJA"], "CAJ_FECHA_APERTURA": data["CAJ_FECHA_APERTURA"], "CAJ_ESTADO": data["CAJ_ESTADO"], "CAJ_SALDO_INICIAL": data["CAJ_SALDO_INICIAL"], "CAJ_SALDO_FINAL": data["CAJ_SALDO_FINAL"], "CAJ_FECHA_CIERRE": data["CAJ_FECHA_CIERRE"]}
+        data = { "id":id, "uuid": uuid_caj, "id_caja": data["id_caja"], "fecha_apertura": data["fecha_apertura"], "estado": data["estado"], "saldo_inicial": data["saldo_inicial"], "saldo_final": data["saldo_final"], "fecha_cierre": data["fecha_cierre"]}
         return data
         
 

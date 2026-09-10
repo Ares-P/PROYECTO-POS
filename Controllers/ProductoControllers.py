@@ -18,6 +18,9 @@ class ProductoControllers:
         result = ProductoServices.update(id, body_data)
         return jsonify({"Mensaje": "Producto actualizado correctamente", "data": result}), 200
 
-    def delete(id):
-        result = ProductoServices.delete(id)
-        return jsonify({"Mensaje": "Producto eliminado correctamente", "data": result}), 200
+    def delete(uuid):
+        x = ProductoServices.delete(uuid)
+        if x == 404:
+            return jsonify({"Mensaje": "no se encontro el producto"}), x
+        else:
+            return jsonify({"mensaje":"Producto eliminado correctamente"}), x

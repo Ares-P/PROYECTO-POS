@@ -35,7 +35,7 @@ class PagoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_pag, "PAG_ID_PAGO": data["PAG_ID_PAGO"], "PAG_REFERENCIA": data["PAG_REFERENCIA"], "PAG_ESTADO": data["PAG_ESTADO"], "PAG_FECHA_PAGO": data["PAG_FECHA_PAGO"], "PAG_VALOR_PAGADO": data["PAG_VALOR_PAGADO"]}
+        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "preferencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"]}
         return data
        
 

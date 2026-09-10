@@ -29,7 +29,7 @@ class Estado_PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_est_ped, "EST_PED_NOMBRE": data["EST_PED_NOMBRE"], "EST_PED_DESCRIPCION": data["EST_PED_DESCRIPCION"]}
+        data = { "id":id, "uuid": uuid_est_ped, "nombre": data["nombre"], "descripcion": data["descripcion"]}
         return data
        
 

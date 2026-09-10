@@ -39,7 +39,7 @@ class PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_ped, "PED_DESCUENTO": data["PED_DESCUENTO"], "PED_IMPUESTO": data["PED_IMPUESTO"], "PED_TOTAL": data["PED_TOTAL"], "PED_FECHA_HORA": data["PED_FECHA_HORA"], "PED_NUMERO_ORDEN": data["PED_NUMERO_ORDEN"], "PED_METODO_ENTREGA": data["PED_METODO_ENTREGA"], "PED_SUBTOTAL": data["PED_SUBTOTAL"]}
+        data = { "id":id, "uuid": uuid_ped, "descuento": data["descuento"], "impuesto": data["impuesto"], "total": data["total"], "fecha_hora": data["fecha_hora"], "numero_orden": data["numero_orden"], "metodo_entrega": data["metodo_entrega"], "subtotal": data["subtotal"]}
         return data
       
 

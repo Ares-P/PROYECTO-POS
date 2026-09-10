@@ -31,7 +31,7 @@ class Metodo_pagoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_met_pag, "MET_PAG_NOMBRE": data["MET_PAG_NOMBRE"], "MET_PAG_ESTADO": data["MET_PAG_ESTADO"], "MET_PAG_DESCRIPCION": data["MET_PAG_DESCRIPCION"]}
+        data = { "id":id, "uuid": uuid_met_pag, "nombre": data["nombre"], "estado": data["estado"], "descripcion": data["descripcion"]}
         return data
 
 

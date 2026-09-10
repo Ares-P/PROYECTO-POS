@@ -20,5 +20,7 @@ def update(id):
 
 
 @producto_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return ProductoControllers.delete(id)
+def delete(uuid):
+    return  ProductoControllers.delete(uuid)
+    
+

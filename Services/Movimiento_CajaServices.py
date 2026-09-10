@@ -33,7 +33,7 @@ class Movimiento_CajaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_mov_caj, "MOV_CAJ_TIPO_MOVIMIENTO": data["MOV_CAJ_TIPO_MOVIMIENTO"], "MOV_CAJ_MONTO": data["MOV_CAJ_MONTO"], "MOV_CAJ_DESCRIPCION": data["MOV_CAJ_DESCRIPCION"], "MOV_CAJ_FECHA_HORA": data["MOV_CAJ_FECHA_HORA"]}
+        data = { "id":id, "uuid": uuid_mov_caj, "tipo_movimiento": data["tipo_movimiento"], "monto": data["monto"], "descripcion": data["descripcion"], "fecha_hora": data["fecha_hora"]}
         return data
     
 

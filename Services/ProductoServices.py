@@ -15,9 +15,10 @@ class ProductoServices:
                 PRO_DESCRIPCION,
                 PRO_PRECIO,
                 PRO_DISPONIBLE,
-                PRO_ESTADO
+                PRO_ESTADO,
+                PRO_CAT_ID
             )
-            VALUES (%s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -26,7 +27,8 @@ class ProductoServices:
             data["descripcion"],
             data["precio"],
             data["diponible"],
-            data["estado"]
+            data["estado"],
+            data["cat_id"]
         )
 
         c.execute(query, values)
@@ -34,20 +36,23 @@ class ProductoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_pro, "PRO_NOMBRE": data["PRO_NOMBRE"], "PRO_DESCRIPCION": data["PRO_DESCRIPCION"], "PRO_PRECIO": data["PRO_PRECIO"], "PRO_DISPONIBLE": data["PRO_DISPONIBLE"], "PRO_ESTADO": data["PRO_ESTADO"]}
+        data = { "id":id, "uuid": uuid_pro, "nombre": data["nombre"], "descripcion": data["descripcion"], "precio": data["precio"], "disponible": data["disponible"], "estado": data["estado"], "cat_id": data["cat_id"]}
         return data
      
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM PRODUCTO WHERE PRO_ID = %s"
+        query = "DELETE FROM PRODUCTO WHERE PRO_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
-        c.close()
+        if c.rowcount == 0:
+            c.close()
+            return 404
 
-        return {"Mensaje": "Registro eliminado correctamente"}
+        c.close()
+        return 200
 
 
     def update(id, data):

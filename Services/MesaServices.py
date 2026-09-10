@@ -31,7 +31,7 @@ class MesaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_mes, "MES_NOMBRE": data["MES_NOMBRE"], "MES_CAPACIDAD": data["MES_CAPACIDAD"], "MES_ESTADO": data["MES_ESTADO"]}
+        data = { "id":id, "uuid": uuid_mes, "nombre": data["nombre"], "capacidad": data["capacidad"], "estado": data["estado"]}
         return data
        
 

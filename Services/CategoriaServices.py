@@ -31,7 +31,7 @@ class CategoriaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_cat, "CAT_NOMBRE": data["CAT_NOMBRE"], "CAT_DESCRIPCION": data["CAT_DESCRIPCION"], "CAT_ESTADO": data["CAT_ESTADO"]}
+        data = { "id":id, "uuid": uuid_cat, "nombre": data["nombre"], "descripcion": data["descripcion"], "estado": data["estado"]}
         return data
       
 
