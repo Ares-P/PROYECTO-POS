@@ -16,9 +16,12 @@ class PagoServices:
                 PAG_REFERENCIA,
                 PAG_ESTADO,
                 PAG_FECHA_PAGO,
-                PAG_VALOR_PAGADO
+                PAG_VALOR_PAGADO,
+                PAG_PED_ID,
+                PAG_MET_PAG_ID,
+                PAG_CAJ_ID
             )
-            VALUES (%s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s)
         """
 
         values = (
@@ -27,7 +30,10 @@ class PagoServices:
             data["referencia"],
             data["estado"],
             data["fecha_pago"],
-            data["valor_pagado"]
+            data["valor_pagado"],
+            data["ped_id"],
+            data["met_pag_id"],
+            data["caj_id"]
         )
 
         c.execute(query, values)
@@ -35,7 +41,7 @@ class PagoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "preferencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"]}
+        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "preferencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"], "ped_:id": data["ped_id"], "met_pag_id": data["met_pag_id"], "caj_id": data["caj_id"]}
         return data
        
 

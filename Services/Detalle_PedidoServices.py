@@ -14,16 +14,20 @@ class Detalle_PedidoServices:
                 DET_PED_UUID,
                 DET_PED_CANTIDAD,
                 DET_PED_PRECIO_UNITARIO,
-                DET_PED_SUBTOTAL
+                DET_PED_SUBTOTAL,
+                DET_PED_PED_ID,
+                DET_PED_PRO_ID 
             )
-            VALUES (%s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
 
         values = (
             uuid_det_ped,
             data["cantidad"],
             data["precio_unitario"],
-            data["subtotal"]
+            data["subtotal"],
+            data["ped_id"],
+            data["pro_id"]
         )
 
         c.execute(query, values)
@@ -31,7 +35,7 @@ class Detalle_PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_det_ped, "cantidad": data["cantidad"], "precio_unitario": data["precio_unitario"], "subtotal": data["subtotal"]}
+        data = { "id":id, "uuid": uuid_det_ped, "cantidad": data["cantidad"], "precio_unitario": data["precio_unitario"], "subtotal": data["subtotal"], "ped_id": data["ped_id"], "pro_id":data["pro_id"]}
         return data
        
 

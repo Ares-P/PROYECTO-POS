@@ -15,9 +15,10 @@ class Movimiento_CajaServices:
                 MOV_CAJ_TIPO_MOVIMIENTO,
                 MOV_CAJ_MONTO,
                 MOV_CAJ_DESCRIPCION,
-                MOV_CAJ_FECHA_HORA
+                MOV_CAJ_FECHA_HORA,
+                MOV_CAJ_CAJ_ID
             )
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -25,7 +26,8 @@ class Movimiento_CajaServices:
             data["tipo_movimiento"],
             data["monto"],
             data["descripcion"],
-            data["fecha_hora"]
+            data["fecha_hora"],
+            data["caj_id"]
         )
 
         c.execute(query, values)
@@ -33,7 +35,7 @@ class Movimiento_CajaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_mov_caj, "tipo_movimiento": data["tipo_movimiento"], "monto": data["monto"], "descripcion": data["descripcion"], "fecha_hora": data["fecha_hora"]}
+        data = { "id":id, "uuid": uuid_mov_caj, "tipo_movimiento": data["tipo_movimiento"], "monto": data["monto"], "descripcion": data["descripcion"], "fecha_hora": data["fecha_hora"], "caj_id": data["caj_id"]}
         return data
     
 

@@ -18,9 +18,12 @@ class PedidoServices:
                 PED_FECHA_HORA,
                 PED_NUMERO_ORDEN,
                 PED_METODO_ENTREGA,
-                PED_SUBTOTAL
+                PED_SUBTOTAL,
+                PED_USU_ID,
+                PED_MES_ID,
+                PED_EST_PED_ID
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -31,7 +34,11 @@ class PedidoServices:
             data["fecha_hora"],
             data["numero_orden"],
             data["metodo_entrega"],
-            data["subtotal"]
+            data["subtotal"],
+            data["usu_id"],
+            data["mes_id"],
+            data["est_ped_id"]
+            
         )
 
         c.execute(query, values)
@@ -39,7 +46,7 @@ class PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_ped, "descuento": data["descuento"], "impuesto": data["impuesto"], "total": data["total"], "fecha_hora": data["fecha_hora"], "numero_orden": data["numero_orden"], "metodo_entrega": data["metodo_entrega"], "subtotal": data["subtotal"]}
+        data = { "id":id, "uuid": uuid_ped, "descuento": data["descuento"], "impuesto": data["impuesto"], "total": data["total"], "fecha_hora": data["fecha_hora"], "numero_orden": data["numero_orden"], "metodo_entrega": data["metodo_entrega"], "subtotal": data["subtotal"], "usu_id": data["usu_id"], "mes_id": data["mes_id"], "usu_id": data["usu_id"], "mes_id": data["mes_id"], "est_ped_id": data["est_ped_id"]}
         return data
       
 
