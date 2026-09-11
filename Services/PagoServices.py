@@ -41,24 +41,27 @@ class PagoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "preferencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"], "ped_:id": data["ped_id"], "met_pag_id": data["met_pag_id"], "caj_id": data["caj_id"]}
+        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "referencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"], "ped_id": data["ped_id"], "met_pag_id": data["met_pag_id"], "caj_id": data["caj_id"]}
         return data
        
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM PAGO WHERE PAG_ID = %s"
+        query = "DELETE FROM PAGO WHERE PAG_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -68,8 +71,11 @@ class PagoServices:
                 PAG_REFERENCIA = %s,
                 PAG_ESTADO = %s,
                 PAG_FECHA_PAGO = %s,
-                PAG_VALOR_PAGADO = %s
-            WHERE PAG_ID = %s
+                PAG_VALOR_PAGADO = %s,
+                PAG_PED_ID = %s,
+                PAG_MET_PAG_ID = %s,
+                PAG_CAJ_ID = %s
+            WHERE PAG_UUID = %s
         """
 
         values = (
@@ -78,7 +84,10 @@ class PagoServices:
             data["estado"],
             data["fecha_pago"],
             data["valor_pagado"],
-            id
+            data["ped_id"],
+            data["met_pag_id"],
+            data["caj_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -86,7 +95,6 @@ class PagoServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()

@@ -55,7 +55,7 @@ class ProductoServices:
         return 200
 
 
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -65,17 +65,19 @@ class ProductoServices:
                 PRO_DESCRIPCION = %s,
                 PRO_PRECIO = %s,
                 PRO_DISPONIBLE = %s,
-                PRO_ESTADO = %s
-            WHERE PRO_ID = %s
+                PRO_ESTADO = %s,
+                PRO_CAT_ID = %s
+            WHERE PRO_UUID = %s
         """
 
         values = (
             data["nombre"],
             data["descripcion"],
             data["precio"],
-            data["dispoible"],
+            data["disponible"],
             data["estado"],
-            id
+            data["cat_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -83,7 +85,6 @@ class ProductoServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()

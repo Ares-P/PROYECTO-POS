@@ -14,11 +14,11 @@ def add():
     return RolControllers.add()
 
 
-@rol_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return RolControllers.update(id)
+@rol_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return RolControllers.update(uuid)
 
 
-@rol_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return RolControllers.delete(id)
+@rol_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return RolControllers.delete(uuid)

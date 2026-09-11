@@ -34,19 +34,22 @@ class Estado_PedidoServices:
        
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM ESTADO_PEDIDO WHERE EST_PED_ID = %s"
+        query = "DELETE FROM ESTADO_PEDIDO WHERE EST_PED_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -54,13 +57,13 @@ class Estado_PedidoServices:
             SET
                 EST_PED_NOMBRE = %s,
                 EST_PED_DESCRIPCION = %s
-            WHERE EST_PED_ID = %s
+            WHERE EST_PED_UUID = %s
         """
 
         values = (
             data["nombre"],
             data["descripcion"],
-            id
+            uuid
         )
 
         c.execute(query, values)

@@ -13,11 +13,19 @@ class Estado_PedidoControllers:
         result = Estado_PedidoServices.add(body_data)
         return jsonify({"Mensaje": "Estado de pedido creado correctamente", "data": result}), 201
 
-    def update(id):
-        body_data = request.get_json()
-        result = Estado_PedidoServices.update(id, body_data)
-        return jsonify({"Mensaje": "Estado de pedido actualizado correctamente", "data": result}), 200
+    def update(uuid):
+        body_data = request.get_json(silent=True)
+        if not body_data:
+            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
 
-    def delete(id):
-        result = Estado_PedidoServices.delete(id)
-        return jsonify({"Mensaje": "Estado de pedido eliminado correctamente", "data": result}), 200
+        result = Estado_PedidoServices.update(uuid, body_data)
+        if result == 404:
+            return jsonify({"Mensaje": "no se encontro estado de pedido"}), 404
+        return jsonify({"mensaje": "Estado de pedido actualizado correctamente", "data": result}), 200
+
+    def delete(uuid):
+        x = Estado_PedidoServices.delete(uuid)
+        if x == 404:
+            return jsonify({"Mensaje": "no se encontro estado de pedido"}), x
+        else:
+            return jsonify({"mensaje": "Estado de pedido eliminado correctamente"}), x

@@ -14,13 +14,13 @@ def add():
     return ProductoControllers.create()
 
 
-@producto_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return ProductoControllers.update(id)
+@producto_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return ProductoControllers.update(uuid)
 
 
 
-@producto_bp.route("/<int:id>", methods=["DELETE"])
+@producto_bp.route("/<uuid>", methods=["DELETE"])
 def delete(uuid):
     return  ProductoControllers.delete(uuid)
     

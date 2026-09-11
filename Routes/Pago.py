@@ -14,11 +14,11 @@ def add():
     return PagoControllers.create()
 
 
-@pago_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return PagoControllers.update(id)
+@pago_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return PagoControllers.update(uuid)
 
 
-@pago_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return PagoControllers.delete(id)
+@pago_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return PagoControllers.delete(uuid)

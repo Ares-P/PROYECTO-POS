@@ -10,6 +10,7 @@ from .Metodo_pago import metodo_pago_bp
 from .Estado_Pedido import estado_pedido_bp
 from .Detalle_Pedido import detalle_pedido_bp
 from .Movimiento_Caja import movimiento_caja_bp
+from .documentacion import documentacion_bp
 
 
 def loadRoutes(app):
@@ -26,3 +27,4 @@ def loadRoutes(app):
     app.register_blueprint(estado_pedido_bp, url_prefix="/estados-pedido")
     app.register_blueprint(detalle_pedido_bp, url_prefix="/detalles-pedido")
     app.register_blueprint(movimiento_caja_bp, url_prefix="/movimientos-caja")
+    app.register_blueprint(documentacion_bp, url_prefix="/documentacion")

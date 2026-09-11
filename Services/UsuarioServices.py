@@ -40,19 +40,22 @@ class UsuarioServices:
         
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM USUARIO WHERE USU_ID = %s"
+        query = "DELETE FROM USUARIO WHERE USU_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -61,8 +64,9 @@ class UsuarioServices:
                 USU_NOMBRE = %s,
                 USU_USUARIO = %s,
                 USU_CONTRASENA = %s,
-                USU_ESTADO = %s
-            WHERE USU_ID = %s
+                USU_ESTADO = %s,
+                USU_ROL_ID = %s
+            WHERE USU_UUID = %s
         """
 
         values = (
@@ -70,7 +74,8 @@ class UsuarioServices:
             data["usuario"],
             data["contraseña"],
             data["estado"],
-            id
+            data["rol_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -78,7 +83,6 @@ class UsuarioServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()

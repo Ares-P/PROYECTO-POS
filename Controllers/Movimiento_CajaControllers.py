@@ -13,11 +13,19 @@ class Movimiento_CajaControllers:
         result = Movimiento_CajaServices.add(body_data)
         return jsonify({"Mensaje": "Movimiento de caja creado correctamente", "data": result}), 201
 
-    def update(id):
-        body_data = request.get_json()
-        result = Movimiento_CajaServices.update(id, body_data)
-        return jsonify({"Mensaje": "Movimiento de caja actualizado correctamente", "data": result}), 200
+    def update(uuid):
+        body_data = request.get_json(silent=True)
+        if not body_data:
+            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
 
-    def delete(id):
-        result = Movimiento_CajaServices.delete(id)
-        return jsonify({"Mensaje": "Movimiento de caja eliminado correctamente", "data": result}), 200
+        result = Movimiento_CajaServices.update(uuid, body_data)
+        if result == 404:
+            return jsonify({"Mensaje": "no se encontro movimiento de caja"}), 404
+        return jsonify({"mensaje": "Movimiento de caja actualizado correctamente", "data": result}), 200
+
+    def delete(uuid):
+        x = Movimiento_CajaServices.delete(uuid)
+        if x == 404:
+            return jsonify({"Mensaje": "no se encontro movimiento de caja"}), x
+        else:
+            return jsonify({"mensaje": "Movimiento de caja eliminado correctamente"}), x

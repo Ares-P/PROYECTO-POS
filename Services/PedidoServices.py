@@ -51,19 +51,22 @@ class PedidoServices:
       
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM PEDIDO WHERE PED_ID = %s"
+        query = "DELETE FROM PEDIDO WHERE PED_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -75,8 +78,11 @@ class PedidoServices:
                 PED_FECHA_HORA = %s,
                 PED_NUMERO_ORDEN = %s,
                 PED_METODO_ENTREGA = %s,
-                PED_SUBTOTAL = %s
-            WHERE PED_ID = %s
+                PED_SUBTOTAL = %s,
+                PED_USU_ID = %s,
+                PED_MES_ID = %s,
+                PED_EST_PED_ID = %s
+            WHERE PED_UUID = %s
         """
 
         values = (
@@ -87,7 +93,10 @@ class PedidoServices:
             data["numero_orden"],
             data["metodo_entrega"],
             data["subtotal"],
-            id
+            data["usu_id"],
+            data["mes_id"],
+            data["est_ped_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -95,7 +104,6 @@ class PedidoServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()

@@ -13,11 +13,19 @@ class MesaControllers:
         result = MesaServices.add(body_data)
         return jsonify({"Mensaje": "Mesa creada correctamente", "data": result}), 201
 
-    def update(id):
-        body_data = request.get_json()
-        result = MesaServices.update(id, body_data)
-        return jsonify({"Mensaje": "Mesa actualizada correctamente", "data": result}), 200
+    def update(uuid):
+        body_data = request.get_json(silent=True)
+        if not body_data:
+            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
 
-    def delete(id):
-        result = MesaServices.delete(id)
-        return jsonify({"Mensaje": "Mesa eliminada correctamente", "data": result}), 200
+        result = MesaServices.update(uuid, body_data)
+        if result == 404:
+            return jsonify({"Mensaje": "no se encontro mesa"}), 404
+        return jsonify({"mensaje": "Mesa actualizado correctamente", "data": result}), 200
+
+    def delete(uuid):
+        x = MesaServices.delete(uuid)
+        if x == 404:
+            return jsonify({"Mensaje": "no se encontro mesa"}), x
+        else:
+            return jsonify({"mensaje": "Mesa eliminado correctamente"}), x
