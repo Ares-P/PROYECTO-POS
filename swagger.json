@@ -1,0 +1,2017 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API REST - Sistema POS",
+    "description": "API REST para la gestión del sistema POS: productos, categorías, usuarios, pedidos, pagos, cajas, mesas, roles, métodos de pago, estados de pedido, detalles de pedido y movimientos de caja.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000",
+      "description": "Servidor local Flask"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Productos",
+      "description": "Gestión de productos"
+    },
+    {
+      "name": "Categorías",
+      "description": "Gestión de categorías"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Gestión de usuarios"
+    },
+    {
+      "name": "Pedidos",
+      "description": "Gestión de pedidos"
+    },
+    {
+      "name": "Pagos",
+      "description": "Gestión de pagos"
+    },
+    {
+      "name": "Cajas",
+      "description": "Gestión de cajas"
+    },
+    {
+      "name": "Mesas",
+      "description": "Gestión de mesas"
+    },
+    {
+      "name": "Roles",
+      "description": "Gestión de roles"
+    },
+    {
+      "name": "Métodos de pago",
+      "description": "Gestión de métodos de pago"
+    },
+    {
+      "name": "Estados de pedido",
+      "description": "Gestión de estados de pedido"
+    },
+    {
+      "name": "Detalles de pedido",
+      "description": "Gestión de detalles de pedido"
+    },
+    {
+      "name": "Movimientos de caja",
+      "description": "Gestión de movimientos de caja"
+    }
+  ],
+  "paths": {
+    "/productos/": {
+      "get": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Listar producto",
+        "responses": {
+          "200": {
+            "description": "Listado de producto obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Crear producto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductoCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/productos{id}": {
+      "put": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Actualizar producto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del producto",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductoUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Eliminar producto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del producto",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Producto eliminado correctamente"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          }
+        }
+      }
+    },
+    "/categorias/": {
+      "get": {
+        "tags": [
+          "Categorías"
+        ],
+        "summary": "Listar categoría",
+        "responses": {
+          "200": {
+            "description": "Listado de categoría obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Categorías"
+        ],
+        "summary": "Crear categoría",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Categoría creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/categorias{id}": {
+      "put": {
+        "tags": [
+          "Categorías"
+        ],
+        "summary": "Actualizar categoría",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del categoría",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Categoría actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Categoría no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categorías"
+        ],
+        "summary": "Eliminar categoría",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del categoría",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoría eliminado correctamente"
+          },
+          "404": {
+            "description": "Categoría no encontrado"
+          }
+        }
+      }
+    },
+    "/usuarios/": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Listar usuario",
+        "responses": {
+          "200": {
+            "description": "Listado de usuario obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Crear usuario",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/usuarios{id}": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Actualizar usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del usuario",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Eliminar usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del usuario",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario eliminado correctamente"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/pedidos/": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Listar pedido",
+        "responses": {
+          "200": {
+            "description": "Listado de pedido obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Crear pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/pedidos{id}": {
+      "put": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Actualizar pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Pedido no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Eliminar pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido eliminado correctamente"
+          },
+          "404": {
+            "description": "Pedido no encontrado"
+          }
+        }
+      }
+    },
+    "/pagos/": {
+      "get": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "Listar pago",
+        "responses": {
+          "200": {
+            "description": "Listado de pago obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "Crear pago",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pago creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/pagos{id}": {
+      "put": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "Actualizar pago",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del pago",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pago actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Pago no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "Eliminar pago",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del pago",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pago eliminado correctamente"
+          },
+          "404": {
+            "description": "Pago no encontrado"
+          }
+        }
+      }
+    },
+    "/cajas/": {
+      "get": {
+        "tags": [
+          "Cajas"
+        ],
+        "summary": "Listar caja",
+        "responses": {
+          "200": {
+            "description": "Listado de caja obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cajas"
+        ],
+        "summary": "Crear caja",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CajaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Caja creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/cajas{id}": {
+      "put": {
+        "tags": [
+          "Cajas"
+        ],
+        "summary": "Actualizar caja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del caja",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CajaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Caja actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Caja no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cajas"
+        ],
+        "summary": "Eliminar caja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del caja",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Caja eliminado correctamente"
+          },
+          "404": {
+            "description": "Caja no encontrado"
+          }
+        }
+      }
+    },
+    "/mesas/": {
+      "get": {
+        "tags": [
+          "Mesas"
+        ],
+        "summary": "Listar mesa",
+        "responses": {
+          "200": {
+            "description": "Listado de mesa obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mesas"
+        ],
+        "summary": "Crear mesa",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MesaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Mesa creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/mesas{id}": {
+      "put": {
+        "tags": [
+          "Mesas"
+        ],
+        "summary": "Actualizar mesa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del mesa",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MesaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mesa actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Mesa no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mesas"
+        ],
+        "summary": "Eliminar mesa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del mesa",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mesa eliminado correctamente"
+          },
+          "404": {
+            "description": "Mesa no encontrado"
+          }
+        }
+      }
+    },
+    "/roles/": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Listar rol",
+        "responses": {
+          "200": {
+            "description": "Listado de rol obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Crear rol",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rol creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/roles{id}": {
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Actualizar rol",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del rol",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rol actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Rol no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Eliminar rol",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del rol",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rol eliminado correctamente"
+          },
+          "404": {
+            "description": "Rol no encontrado"
+          }
+        }
+      }
+    },
+    "/metodos-pago/": {
+      "get": {
+        "tags": [
+          "Métodos de pago"
+        ],
+        "summary": "Listar método de pago",
+        "responses": {
+          "200": {
+            "description": "Listado de método de pago obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Métodos de pago"
+        ],
+        "summary": "Crear método de pago",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetodoPagoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Método de pago creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/metodos-pago{id}": {
+      "put": {
+        "tags": [
+          "Métodos de pago"
+        ],
+        "summary": "Actualizar método de pago",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del método de pago",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetodoPagoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Método de pago actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Método de pago no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Métodos de pago"
+        ],
+        "summary": "Eliminar método de pago",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del método de pago",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Método de pago eliminado correctamente"
+          },
+          "404": {
+            "description": "Método de pago no encontrado"
+          }
+        }
+      }
+    },
+    "/estados-pedido/": {
+      "get": {
+        "tags": [
+          "Estados de pedido"
+        ],
+        "summary": "Listar estado de pedido",
+        "responses": {
+          "200": {
+            "description": "Listado de estado de pedido obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Estados de pedido"
+        ],
+        "summary": "Crear estado de pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EstadoPedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estado de pedido creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/estados-pedido{id}": {
+      "put": {
+        "tags": [
+          "Estados de pedido"
+        ],
+        "summary": "Actualizar estado de pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del estado de pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EstadoPedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado de pedido actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Estado de pedido no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Estados de pedido"
+        ],
+        "summary": "Eliminar estado de pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del estado de pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado de pedido eliminado correctamente"
+          },
+          "404": {
+            "description": "Estado de pedido no encontrado"
+          }
+        }
+      }
+    },
+    "/detalles-pedido/": {
+      "get": {
+        "tags": [
+          "Detalles de pedido"
+        ],
+        "summary": "Listar detalle de pedido",
+        "responses": {
+          "200": {
+            "description": "Listado de detalle de pedido obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Detalles de pedido"
+        ],
+        "summary": "Crear detalle de pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetallePedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Detalle de pedido creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/detalles-pedido{id}": {
+      "put": {
+        "tags": [
+          "Detalles de pedido"
+        ],
+        "summary": "Actualizar detalle de pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del detalle de pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetallePedidoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Detalle de pedido actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Detalle de pedido no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Detalles de pedido"
+        ],
+        "summary": "Eliminar detalle de pedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del detalle de pedido",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de pedido eliminado correctamente"
+          },
+          "404": {
+            "description": "Detalle de pedido no encontrado"
+          }
+        }
+      }
+    },
+    "/movimientos-caja/": {
+      "get": {
+        "tags": [
+          "Movimientos de caja"
+        ],
+        "summary": "Listar movimiento de caja",
+        "responses": {
+          "200": {
+            "description": "Listado de movimiento de caja obtenido correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Movimientos de caja"
+        ],
+        "summary": "Crear movimiento de caja",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovimientoCajaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Movimiento de caja creado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          }
+        }
+      }
+    },
+    "/movimientos-caja{id}": {
+      "put": {
+        "tags": [
+          "Movimientos de caja"
+        ],
+        "summary": "Actualizar movimiento de caja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del movimiento de caja",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovimientoCajaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Movimiento de caja actualizado correctamente"
+          },
+          "400": {
+            "description": "Solicitud inválida"
+          },
+          "404": {
+            "description": "Movimiento de caja no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Movimientos de caja"
+        ],
+        "summary": "Eliminar movimiento de caja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del movimiento de caja",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movimiento de caja eliminado correctamente"
+          },
+          "404": {
+            "description": "Movimiento de caja no encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Producto": {
+        "type": "object",
+        "properties": {
+          "PRO_ID": {
+            "type": "integer"
+          },
+          "PRO_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "PRO_NOMBRE": {
+            "type": "string"
+          },
+          "PRO_DESCRIPCION": {
+            "type": "string"
+          },
+          "PRO_PRECIO": {
+            "type": "number",
+            "format": "double"
+          },
+          "PRO_DISPONIBLE": {
+            "type": "boolean"
+          },
+          "PRO_ESTADO": {
+            "type": "boolean"
+          },
+          "PRO_CAT_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "ProductoCreate": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "descripcion",
+          "precio",
+          "diponible",
+          "estado"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Hamburguesa clásica"
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Hamburguesa con carne y queso"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double",
+            "example": 15000
+          },
+          "diponible": {
+            "type": "boolean",
+            "example": true,
+            "description": "Nombre usado actualmente por el servicio del proyecto."
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ProductoUpdate": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "descripcion",
+          "precio",
+          "dispoible",
+          "estado"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "dispoible": {
+            "type": "boolean",
+            "description": "Nombre usado actualmente por el servicio de actualización."
+          },
+          "estado": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Categoria": {
+        "type": "object",
+        "properties": {
+          "CAT_ID": {
+            "type": "integer"
+          },
+          "CAT_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "CAT_NOMBRE": {
+            "type": "string"
+          },
+          "CAT_DESCRIPCION": {
+            "type": "string"
+          },
+          "CAT_ESTADO": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CategoriaRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "descripcion",
+          "estado"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Bebidas"
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Bebidas frías y calientes"
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "USU_ID": {
+            "type": "integer"
+          },
+          "USU_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "USU_NOMBRE": {
+            "type": "string"
+          },
+          "USU_USUARIO": {
+            "type": "string"
+          },
+          "USU_CONTRASENA": {
+            "type": "string",
+            "format": "password"
+          },
+          "USU_ESTADO": {
+            "type": "boolean"
+          },
+          "USU_ROL_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "UsuarioRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "usuario",
+          "contrasena",
+          "estado"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Juan Pérez"
+          },
+          "usuario": {
+            "type": "string",
+            "example": "juanp"
+          },
+          "contrasena": {
+            "type": "string",
+            "format": "password",
+            "example": "123456"
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Pedido": {
+        "type": "object",
+        "properties": {
+          "PED_ID": {
+            "type": "integer"
+          },
+          "PED_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "PED_DESCUENTO": {
+            "type": "number",
+            "format": "double"
+          },
+          "PED_IMPUESTO": {
+            "type": "number",
+            "format": "double"
+          },
+          "PED_TOTAL": {
+            "type": "number",
+            "format": "double"
+          },
+          "PED_FECHA_HORA": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "PED_NUMERO_ORDEN": {
+            "type": "string"
+          },
+          "PED_METODO_ENTREGA": {
+            "type": "string"
+          },
+          "PED_SUBTOTAL": {
+            "type": "number",
+            "format": "double"
+          },
+          "PED_USU_ID": {
+            "type": "integer"
+          },
+          "PED_MES_ID": {
+            "type": "integer"
+          },
+          "PED_EST_PED_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "PedidoRequest": {
+        "type": "object",
+        "required": [
+          "descuento",
+          "impuesto",
+          "total",
+          "fecha_hora",
+          "numero_orden",
+          "metodo_entrega",
+          "subtotal"
+        ],
+        "properties": {
+          "descuento": {
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "impuesto": {
+            "type": "number",
+            "format": "double",
+            "example": 2850
+          },
+          "total": {
+            "type": "number",
+            "format": "double",
+            "example": 17850
+          },
+          "fecha_hora": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "numero_orden": {
+            "type": "string",
+            "example": "ORD-0001"
+          },
+          "metodo_entrega": {
+            "type": "string",
+            "example": "mesa"
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double",
+            "example": 15000
+          }
+        }
+      },
+      "Pago": {
+        "type": "object",
+        "properties": {
+          "PAG_ID": {
+            "type": "integer"
+          },
+          "PAG_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "PAG_ID_PAGO": {
+            "type": "string"
+          },
+          "PAG_REFERENCIA": {
+            "type": "string"
+          },
+          "PAG_ESTADO": {
+            "type": "boolean"
+          },
+          "PAG_FECHA_PAGO": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "PAG_VALOR_PAGADO": {
+            "type": "number",
+            "format": "double"
+          },
+          "PAG_PED_ID": {
+            "type": "integer"
+          },
+          "PAG_MET_PAG_ID": {
+            "type": "integer"
+          },
+          "PAG_CAJ_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "PagoRequest": {
+        "type": "object",
+        "required": [
+          "id_pago",
+          "referencia",
+          "estado",
+          "fecha_pago",
+          "valor_pagado"
+        ],
+        "properties": {
+          "id_pago": {
+            "type": "string",
+            "example": "PAY-001"
+          },
+          "referencia": {
+            "type": "string",
+            "example": "REF-12345"
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          },
+          "fecha_pago": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valor_pagado": {
+            "type": "number",
+            "format": "double",
+            "example": 17850
+          }
+        }
+      },
+      "Caja": {
+        "type": "object",
+        "properties": {
+          "CAJ_ID": {
+            "type": "integer"
+          },
+          "CAJ_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "CAJ_ID_CAJA": {
+            "type": "string"
+          },
+          "CAJ_FECHA_APERTURA": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "CAJ_ESTADO": {
+            "type": "boolean"
+          },
+          "CAJ_SALDO_INICIAL": {
+            "type": "number",
+            "format": "double"
+          },
+          "CAJ_SALDO_FINAL": {
+            "type": "number",
+            "format": "double"
+          },
+          "CAJ_FECHA_CIERRE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "CajaRequest": {
+        "type": "object",
+        "required": [
+          "id_caja",
+          "fecha_apertura",
+          "estado",
+          "saldo_inicial",
+          "saldo_final",
+          "fecha_cierre"
+        ],
+        "properties": {
+          "id_caja": {
+            "type": "string",
+            "example": "CAJA-01"
+          },
+          "fecha_apertura": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          },
+          "saldo_inicial": {
+            "type": "number",
+            "format": "double",
+            "example": 100000
+          },
+          "saldo_final": {
+            "type": "number",
+            "format": "double",
+            "example": 100000
+          },
+          "fecha_cierre": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "Mesa": {
+        "type": "object",
+        "properties": {
+          "MES_ID": {
+            "type": "integer"
+          },
+          "MES_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "MES_NOMBRE": {
+            "type": "string"
+          },
+          "MES_CAPACIDAD": {
+            "type": "integer"
+          },
+          "MES_ESTADO": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MesaRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "capacidad",
+          "estado"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Mesa 1"
+          },
+          "capacidad": {
+            "type": "integer",
+            "example": 4
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Rol": {
+        "type": "object",
+        "properties": {
+          "ROL_ID": {
+            "type": "integer"
+          },
+          "ROL_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ROL_NOMBRE": {
+            "type": "string"
+          },
+          "ROL_DESCRIPCION": {
+            "type": "string"
+          }
+        }
+      },
+      "RolRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "descripcion"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Administrador"
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Acceso administrativo al sistema"
+          }
+        }
+      },
+      "MetodoPago": {
+        "type": "object",
+        "properties": {
+          "MET_PAG_ID": {
+            "type": "integer"
+          },
+          "MET_PAG_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "MET_PAG_NOMBRE": {
+            "type": "string"
+          },
+          "MET_PAG_ESTADO": {
+            "type": "boolean"
+          },
+          "MET_PAG_DESCRIPCION": {
+            "type": "string"
+          }
+        }
+      },
+      "MetodoPagoRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "estado",
+          "descripcion"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Efectivo"
+          },
+          "estado": {
+            "type": "boolean",
+            "example": true
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Pago realizado en efectivo"
+          }
+        }
+      },
+      "EstadoPedido": {
+        "type": "object",
+        "properties": {
+          "EST_PED_ID": {
+            "type": "integer"
+          },
+          "EST_PED_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "EST_PED_NOMBRE": {
+            "type": "string"
+          },
+          "EST_PED_DESCRIPCION": {
+            "type": "string"
+          }
+        }
+      },
+      "EstadoPedidoRequest": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "descripcion"
+        ],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Pendiente"
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Pedido pendiente de preparación"
+          }
+        }
+      },
+      "DetallePedido": {
+        "type": "object",
+        "properties": {
+          "DET_PED_ID": {
+            "type": "integer"
+          },
+          "DET_PED_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "DET_PED_CANTIDAD": {
+            "type": "integer"
+          },
+          "DET_PED_PRECIO_UNITARIO": {
+            "type": "number",
+            "format": "double"
+          },
+          "DET_PED_SUBTOTAL": {
+            "type": "number",
+            "format": "double"
+          },
+          "DET_PED_PED_ID": {
+            "type": "integer"
+          },
+          "DET_PED_PRO_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "DetallePedidoRequest": {
+        "type": "object",
+        "required": [
+          "cantidad",
+          "precio_unitario",
+          "subtotal"
+        ],
+        "properties": {
+          "cantidad": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 2
+          },
+          "precio_unitario": {
+            "type": "number",
+            "format": "double",
+            "example": 12000
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double",
+            "example": 24000
+          }
+        }
+      },
+      "MovimientoCaja": {
+        "type": "object",
+        "properties": {
+          "MOV_CAJ_ID": {
+            "type": "integer"
+          },
+          "MOV_CAJ_UUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "MOV_CAJ_TIPO_MOVIMIENTO": {
+            "type": "string"
+          },
+          "MOV_CAJ_MONTO": {
+            "type": "number",
+            "format": "double"
+          },
+          "MOV_CAJ_DESCRIPCION": {
+            "type": "string"
+          },
+          "MOV_CAJ_FECHA_HORA": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MOV_CAJ_CAJ_ID": {
+            "type": "integer"
+          }
+        }
+      },
+      "MovimientoCajaRequest": {
+        "type": "object",
+        "required": [
+          "tipo_movimiento",
+          "monto",
+          "descripcion",
+          "fecha_hora"
+        ],
+        "properties": {
+          "tipo_movimiento": {
+            "type": "string",
+            "example": "INGRESO"
+          },
+          "monto": {
+            "type": "number",
+            "format": "double",
+            "example": 50000
+          },
+          "descripcion": {
+            "type": "string",
+            "example": "Ingreso por venta"
+          },
+          "fecha_hora": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

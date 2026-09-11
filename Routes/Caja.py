@@ -14,11 +14,11 @@ def add():
     return CajaControllers.create()
 
 
-@caja_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return CajaControllers.update(id)
+@caja_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return CajaControllers.update(uuid)
 
 
-@caja_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return CajaControllers.delete(id)
+@caja_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return CajaControllers.delete(uuid)

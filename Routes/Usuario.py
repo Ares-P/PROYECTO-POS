@@ -14,11 +14,11 @@ def add():
     return UsuarioControllers.create()
 
 
-@usuario_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return UsuarioControllers.update(id)
+@usuario_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return UsuarioControllers.update(uuid)
 
 
-@usuario_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return UsuarioControllers.delete(id)
+@usuario_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return UsuarioControllers.delete(uuid)

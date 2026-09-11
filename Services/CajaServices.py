@@ -34,26 +34,29 @@ class CajaServices:
         c.execute(query, values)
         current_app.mysql.connection.commit()
         id = c.lastrowid
-        c.close()
+        c.close()   
 
-        data = { "id":id, "uuid": uuid_caj, "CAJ_ID_CAJA": data["CAJ_ID_CAJA"], "CAJ_FECHA_APERTURA": data["CAJ_FECHA_APERTURA"], "CAJ_ESTADO": data["CAJ_ESTADO"], "CAJ_SALDO_INICIAL": data["CAJ_SALDO_INICIAL"], "CAJ_SALDO_FINAL": data["CAJ_SALDO_FINAL"], "CAJ_FECHA_CIERRE": data["CAJ_FECHA_CIERRE"]}
+        data = { "id":id, "uuid": uuid_caj, "id_caja": data["id_caja"], "fecha_apertura": data["fecha_apertura"], "estado": data["estado"], "saldo_inicial": data["saldo_inicial"], "saldo_final": data["saldo_final"], "fecha_cierre": data["fecha_cierre"]}
         return data
         
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM CAJA WHERE CAJ_ID = %s"
+        query = "DELETE FROM CAJA WHERE CAJ_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -65,7 +68,7 @@ class CajaServices:
                 CAJ_SALDO_INICIAL = %s,
                 CAJ_SALDO_FINAL = %s,
                 CAJ_FECHA_CIERRE = %s
-            WHERE CAJ_ID = %s
+            WHERE CAJ_UUID = %s
         """
 
         values = (
@@ -75,7 +78,7 @@ class CajaServices:
             data["saldo_inicial"],
             data["saldo_final"],
             data["fecha_cierre"],
-            id
+            uuid
         )
 
         c.execute(query, values)
@@ -94,6 +97,6 @@ class CajaServices:
 
         data = c.fetchall()
 
-        x = [ Caja (w[0], w[1], w[2], w[3], w[4], w[5], w[6],w[7] ) for w in data]
+        x = [ Caja (w[0], w[1], w[2], w[3], w[4], w[5], w[6],w[7] ).to_dict() for w in data]
 
         return x

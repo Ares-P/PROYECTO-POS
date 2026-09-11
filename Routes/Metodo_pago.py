@@ -14,11 +14,11 @@ def add():
     return Metodo_pagoControllers.create()
 
 
-@metodo_pago_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return Metodo_pagoControllers.update(id)
+@metodo_pago_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return Metodo_pagoControllers.update(uuid)
 
 
-@metodo_pago_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return Metodo_pagoControllers.delete(id)
+@metodo_pago_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return Metodo_pagoControllers.delete(uuid)

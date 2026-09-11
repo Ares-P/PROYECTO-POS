@@ -31,24 +31,27 @@ class MesaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_mes, "MES_NOMBRE": data["MES_NOMBRE"], "MES_CAPACIDAD": data["MES_CAPACIDAD"], "MES_ESTADO": data["MES_ESTADO"]}
+        data = { "id":id, "uuid": uuid_mes, "nombre": data["nombre"], "capacidad": data["capacidad"], "estado": data["estado"]}
         return data
        
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM MESA WHERE MES_ID = %s"
+        query = "DELETE FROM MESA WHERE MES_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -57,14 +60,14 @@ class MesaServices:
                 MES_NOMBRE = %s,
                 MES_CAPACIDAD = %s,
                 MES_ESTADO = %s
-            WHERE MES_ID = %s
+            WHERE MES_UUID = %s
         """
 
         values = (
             data["nombre"],
             data["capacidad"],
             data["estado"],
-            id
+            uuid
         )
 
         c.execute(query, values)

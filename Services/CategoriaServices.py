@@ -31,24 +31,27 @@ class CategoriaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_cat, "CAT_NOMBRE": data["CAT_NOMBRE"], "CAT_DESCRIPCION": data["CAT_DESCRIPCION"], "CAT_ESTADO": data["CAT_ESTADO"]}
+        data = { "id":id, "uuid": uuid_cat, "nombre": data["nombre"], "descripcion": data["descripcion"], "estado": data["estado"]}
         return data
       
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM CATEGORIA WHERE CAT_ID = %s"
+        query = "DELETE FROM CATEGORIA WHERE CAT_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -57,14 +60,14 @@ class CategoriaServices:
                 CAT_NOMBRE = %s,
                 CAT_DESCRIPCION = %s,
                 CAT_ESTADO = %s
-            WHERE CAT_ID = %s
+            WHERE CAT_UUID = %s
         """
 
         values = (
             data["nombre"],
             data["descripcion"],
             data["estado"],
-            id
+            uuid
         )
 
         c.execute(query, values)

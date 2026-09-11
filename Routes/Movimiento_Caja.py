@@ -14,11 +14,11 @@ def add():
     return Movimiento_CajaControllers.create()
 
 
-@movimiento_caja_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return Movimiento_CajaControllers.update(id)
+@movimiento_caja_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return Movimiento_CajaControllers.update(uuid)
 
 
-@movimiento_caja_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return Movimiento_CajaControllers.delete(id)
+@movimiento_caja_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return Movimiento_CajaControllers.delete(uuid)

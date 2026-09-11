@@ -15,9 +15,10 @@ class Movimiento_CajaServices:
                 MOV_CAJ_TIPO_MOVIMIENTO,
                 MOV_CAJ_MONTO,
                 MOV_CAJ_DESCRIPCION,
-                MOV_CAJ_FECHA_HORA
+                MOV_CAJ_FECHA_HORA,
+                MOV_CAJ_CAJ_ID
             )
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -25,7 +26,8 @@ class Movimiento_CajaServices:
             data["tipo_movimiento"],
             data["monto"],
             data["descripcion"],
-            data["fecha_hora"]
+            data["fecha_hora"],
+            data["caj_id"]
         )
 
         c.execute(query, values)
@@ -33,24 +35,27 @@ class Movimiento_CajaServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_mov_caj, "MOV_CAJ_TIPO_MOVIMIENTO": data["MOV_CAJ_TIPO_MOVIMIENTO"], "MOV_CAJ_MONTO": data["MOV_CAJ_MONTO"], "MOV_CAJ_DESCRIPCION": data["MOV_CAJ_DESCRIPCION"], "MOV_CAJ_FECHA_HORA": data["MOV_CAJ_FECHA_HORA"]}
+        data = { "id":id, "uuid": uuid_mov_caj, "tipo_movimiento": data["tipo_movimiento"], "monto": data["monto"], "descripcion": data["descripcion"], "fecha_hora": data["fecha_hora"], "caj_id": data["caj_id"]}
         return data
     
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM MOVIMIENTO_CAJA WHERE MOV_CAJ_ID = %s"
+        query = "DELETE FROM MOVIMIENTO_CAJA WHERE MOV_CAJ_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -59,8 +64,9 @@ class Movimiento_CajaServices:
                 MOV_CAJ_TIPO_MOVIMIENTO = %s,
                 MOV_CAJ_MONTO = %s,
                 MOV_CAJ_DESCRIPCION = %s,
-                MOV_CAJ_FECHA_HORA = %s
-            WHERE MOV_CAJ_ID = %s
+                MOV_CAJ_FECHA_HORA = %s,
+                MOV_CAJ_CAJ_ID = %s
+            WHERE MOV_CAJ_UUID = %s
         """
 
         values = (
@@ -68,7 +74,8 @@ class Movimiento_CajaServices:
             data["monto"],
             data["descripcion"],
             data["fecha_hora"],
-            id
+            data["caj_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -76,7 +83,6 @@ class Movimiento_CajaServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()

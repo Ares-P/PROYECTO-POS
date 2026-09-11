@@ -14,11 +14,11 @@ def add():
     return MesaControllers.create()
 
 
-@mesa_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return MesaControllers.update(id)
+@mesa_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return MesaControllers.update(uuid)
 
 
-@mesa_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return MesaControllers.delete(id)
+@mesa_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return MesaControllers.delete(uuid)

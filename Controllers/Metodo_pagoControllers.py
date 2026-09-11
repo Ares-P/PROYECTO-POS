@@ -13,11 +13,19 @@ class Metodo_pagoControllers:
         result = Metodo_pagoServices.add(body_data)
         return jsonify({"Mensaje": "Método de pago creado correctamente", "data": result}), 201
 
-    def update(id):
-        body_data = request.get_json()
-        result = Metodo_pagoServices.update(id, body_data)
-        return jsonify({"Mensaje": "Método de pago actualizado correctamente", "data": result}), 200
+    def update(uuid):
+        body_data = request.get_json(silent=True)
+        if not body_data:
+            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
 
-    def delete(id):
-        result = Metodo_pagoServices.delete(id)
-        return jsonify({"Mensaje": "Método de pago eliminado correctamente", "data": result}), 200
+        result = Metodo_pagoServices.update(uuid, body_data)
+        if result == 404:
+            return jsonify({"Mensaje": "no se encontro método de pago"}), 404
+        return jsonify({"mensaje": "Método de pago actualizado correctamente", "data": result}), 200
+
+    def delete(uuid):
+        x = Metodo_pagoServices.delete(uuid)
+        if x == 404:
+            return jsonify({"Mensaje": "no se encontro método de pago"}), x
+        else:
+            return jsonify({"mensaje": "Método de pago eliminado correctamente"}), x

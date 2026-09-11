@@ -31,24 +31,27 @@ class Metodo_pagoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_met_pag, "MET_PAG_NOMBRE": data["MET_PAG_NOMBRE"], "MET_PAG_ESTADO": data["MET_PAG_ESTADO"], "MET_PAG_DESCRIPCION": data["MET_PAG_DESCRIPCION"]}
+        data = { "id":id, "uuid": uuid_met_pag, "nombre": data["nombre"], "estado": data["estado"], "descripcion": data["descripcion"]}
         return data
 
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM METODO_PAGO WHERE MET_PAG_ID = %s"
+        query = "DELETE FROM METODO_PAGO WHERE MET_PAG_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -57,14 +60,14 @@ class Metodo_pagoServices:
                 MET_PAG_NOMBRE = %s,
                 MET_PAG_ESTADO = %s,
                 MET_PAG_DESCRIPCION = %s
-            WHERE MET_PAG_ID = %s
+            WHERE MET_PAG_UUID = %s
         """
 
         values = (
             data["nombre"],
             data["estado"],
             data["descripcion"],
-            id
+            uuid
         )
 
         c.execute(query, values)

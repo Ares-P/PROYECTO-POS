@@ -14,11 +14,11 @@ def add():
     return PedidoControllers.create()
 
 
-@pedido_bp.route("/<int:id>", methods=["PUT"])
-def update(id):
-    return PedidoControllers.update(id)
+@pedido_bp.route("/<uuid>", methods=["PUT"])
+def update(uuid):
+    return PedidoControllers.update(uuid)
 
 
-@pedido_bp.route("/<int:id>", methods=["DELETE"])
-def delete(id):
-    return PedidoControllers.delete(id)
+@pedido_bp.route("/<uuid>", methods=["DELETE"])
+def delete(uuid):
+    return PedidoControllers.delete(uuid)

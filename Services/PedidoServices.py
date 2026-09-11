@@ -18,9 +18,12 @@ class PedidoServices:
                 PED_FECHA_HORA,
                 PED_NUMERO_ORDEN,
                 PED_METODO_ENTREGA,
-                PED_SUBTOTAL
+                PED_SUBTOTAL,
+                PED_USU_ID,
+                PED_MES_ID,
+                PED_EST_PED_ID
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -31,7 +34,11 @@ class PedidoServices:
             data["fecha_hora"],
             data["numero_orden"],
             data["metodo_entrega"],
-            data["subtotal"]
+            data["subtotal"],
+            data["usu_id"],
+            data["mes_id"],
+            data["est_ped_id"]
+            
         )
 
         c.execute(query, values)
@@ -39,24 +46,27 @@ class PedidoServices:
         id = c.lastrowid
         c.close()
 
-        data = { "id":id, "uuid": uuid_ped, "PED_DESCUENTO": data["PED_DESCUENTO"], "PED_IMPUESTO": data["PED_IMPUESTO"], "PED_TOTAL": data["PED_TOTAL"], "PED_FECHA_HORA": data["PED_FECHA_HORA"], "PED_NUMERO_ORDEN": data["PED_NUMERO_ORDEN"], "PED_METODO_ENTREGA": data["PED_METODO_ENTREGA"], "PED_SUBTOTAL": data["PED_SUBTOTAL"]}
+        data = { "id":id, "uuid": uuid_ped, "descuento": data["descuento"], "impuesto": data["impuesto"], "total": data["total"], "fecha_hora": data["fecha_hora"], "numero_orden": data["numero_orden"], "metodo_entrega": data["metodo_entrega"], "subtotal": data["subtotal"], "usu_id": data["usu_id"], "mes_id": data["mes_id"], "usu_id": data["usu_id"], "mes_id": data["mes_id"], "est_ped_id": data["est_ped_id"]}
         return data
       
 
 
-    def delete(id):
+    def delete(uuid):
         c = current_app.mysql.connection.cursor()
 
-        query = "DELETE FROM PEDIDO WHERE PED_ID = %s"
+        query = "DELETE FROM PEDIDO WHERE PED_UUID = %s"
 
-        c.execute(query, (id,))
+        c.execute(query, (uuid,))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
+
         c.close()
+        return 200
 
-        return {"Mensaje": "Registro eliminado correctamente"}
 
-
-    def update(id, data):
+    def update(uuid, data):
         c = current_app.mysql.connection.cursor()
 
         query = """
@@ -68,8 +78,11 @@ class PedidoServices:
                 PED_FECHA_HORA = %s,
                 PED_NUMERO_ORDEN = %s,
                 PED_METODO_ENTREGA = %s,
-                PED_SUBTOTAL = %s
-            WHERE PED_ID = %s
+                PED_SUBTOTAL = %s,
+                PED_USU_ID = %s,
+                PED_MES_ID = %s,
+                PED_EST_PED_ID = %s
+            WHERE PED_UUID = %s
         """
 
         values = (
@@ -80,7 +93,10 @@ class PedidoServices:
             data["numero_orden"],
             data["metodo_entrega"],
             data["subtotal"],
-            id
+            data["usu_id"],
+            data["mes_id"],
+            data["est_ped_id"],
+            uuid
         )
 
         c.execute(query, values)
@@ -88,7 +104,6 @@ class PedidoServices:
         c.close()
 
         return {"Mensaje": "Registro actualizado correctamente"}
-
 
     def consult():
         c = current_app.mysql.connection.cursor()
