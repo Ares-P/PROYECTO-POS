@@ -7,106 +7,48 @@ class PagoServices:
     def add(data):
         uuid_pag = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
-
         query = """
             INSERT INTO PAGO
-            (
-                PAG_UUID,
-                PAG_ID_PAGO,
-                PAG_REFERENCIA,
-                PAG_ESTADO,
-                PAG_FECHA_PAGO,
-                PAG_VALOR_PAGADO,
-                PAG_PED_ID,
-                PAG_MET_PAG_ID,
-                PAG_CAJ_ID
-            )
-            VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s)
+            (PAG_UUID, PAG_ID_PAGO, PAG_REFERENCIA, PAG_ESTADO, PAG_FECHA_PAGO, PAG_VALOR_PAGADO, PAG_PED_ID, PAG_MET_PAG_ID, PAG_CAJ_ID)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-
-        values = (
-            uuid_pag,
-            data["id_pago"],
-            data["referencia"],
-            data["estado"],
-            data["fecha_pago"],
-            data["valor_pagado"],
-            data["ped_id"],
-            data["met_pag_id"],
-            data["caj_id"]
-        )
-
+        values = (uuid_pag, data["id_pago"], data["referencia"], data["estado"], data["fecha_pago"], data["valor_pagado"], data["ped_id"], data["met_pag_id"], data["caj_id"])
         c.execute(query, values)
         current_app.mysql.connection.commit()
         id = c.lastrowid
         c.close()
-
-        data = { "id":id, "uuid": uuid_pag, "id_pago": data["id_pago"], "referencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"], "ped_id": data["ped_id"], "met_pag_id": data["met_pag_id"], "caj_id": data["caj_id"]}
-        return data
-       
-
+        return {"id": id, "uuid": uuid_pag, "id_pago": data["id_pago"], "referencia": data["referencia"], "estado": data["estado"], "fecha_pago": data["fecha_pago"], "valor_pagado": data["valor_pagado"], "ped_id": data["ped_id"], "met_pag_id": data["met_pag_id"], "caj_id": data["caj_id"]}
 
     def delete(uuid):
         c = current_app.mysql.connection.cursor()
-
-        query = "DELETE FROM PAGO WHERE PAG_UUID = %s"
-
-        c.execute(query, (uuid,))
+        c.execute("DELETE FROM PAGO WHERE PAG_UUID = %s", (uuid,))
         current_app.mysql.connection.commit()
         if c.rowcount == 0:
             c.close()
             return 404
-
         c.close()
         return 200
 
-
     def update(uuid, data):
         c = current_app.mysql.connection.cursor()
-
         query = """
-            UPDATE PAGO
-            SET
-                PAG_ID_PAGO = %s,
-                PAG_REFERENCIA = %s,
-                PAG_ESTADO = %s,
-                PAG_FECHA_PAGO = %s,
-                PAG_VALOR_PAGADO = %s,
-                PAG_PED_ID = %s,
-                PAG_MET_PAG_ID = %s,
-                PAG_CAJ_ID = %s
+            UPDATE PAGO SET
+                PAG_ID_PAGO = %s, PAG_REFERENCIA = %s, PAG_ESTADO = %s, PAG_FECHA_PAGO = %s,
+                PAG_VALOR_PAGADO = %s, PAG_PED_ID = %s, PAG_MET_PAG_ID = %s, PAG_CAJ_ID = %s
             WHERE PAG_UUID = %s
         """
-
-        values = (
-            data["id_pago"],
-            data["referencia"],
-            data["estado"],
-            data["fecha_pago"],
-            data["valor_pagado"],
-            data["ped_id"],
-            data["met_pag_id"],
-            data["caj_id"],
-            uuid
-        )
-
+        values = (data["id_pago"], data["referencia"], data["estado"], data["fecha_pago"], data["valor_pagado"], data["ped_id"], data["met_pag_id"], data["caj_id"], uuid)
         c.execute(query, values)
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
         c.close()
-
-        return {"Mensaje": "Registro actualizado correctamente"}
+        return {"uuid": uuid, **data}
 
     def consult():
         c = current_app.mysql.connection.cursor()
-
-        query = "SELECT * FROM PAGO"
-
-        c.execute(query)
-
+        c.execute("SELECT * FROM PAGO")
         data = c.fetchall()
-
         c.close()
-
-        x = [ Pago (w[0], w[1], w[2], w[3]).to_dict() for w in data]
-
-        return x
+        return [Pago(w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8], w[9]).to_dict() for w in data]

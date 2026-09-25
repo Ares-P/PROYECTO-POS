@@ -7,87 +7,44 @@ class MesaServices:
     def add(data):
         uuid_mes = uuid.uuid4()
         c = current_app.mysql.connection.cursor()
-
         query = """
-            INSERT INTO MESA
-            (
-                MES_UUID,
-                MES_NOMBRE,
-                MES_CAPACIDAD,
-                MES_ESTADO
-            )
+            INSERT INTO MESA (MES_UUID, MES_NOMBRE, MES_CAPACIDAD, MES_ESTADO)
             VALUES (%s, %s, %s, %s)
         """
-
-        values = (
-            uuid_mes,
-            data["nombre"],
-            data["capacidad"],
-            data["estado"]
-        )
-
-        c.execute(query, values)
+        c.execute(query, (uuid_mes, data["nombre"], data["capacidad"], data["estado"]))
         current_app.mysql.connection.commit()
         id = c.lastrowid
         c.close()
-
-        data = { "id":id, "uuid": uuid_mes, "nombre": data["nombre"], "capacidad": data["capacidad"], "estado": data["estado"]}
-        return data
-       
-
+        return {"id": id, "uuid": uuid_mes, "nombre": data["nombre"], "capacidad": data["capacidad"], "estado": data["estado"]}
 
     def delete(uuid):
         c = current_app.mysql.connection.cursor()
-
-        query = "DELETE FROM MESA WHERE MES_UUID = %s"
-
-        c.execute(query, (uuid,))
+        c.execute("DELETE FROM MESA WHERE MES_UUID = %s", (uuid,))
         current_app.mysql.connection.commit()
         if c.rowcount == 0:
             c.close()
             return 404
-
         c.close()
         return 200
 
-
     def update(uuid, data):
         c = current_app.mysql.connection.cursor()
-
         query = """
-            UPDATE MESA
-            SET
-                MES_NOMBRE = %s,
-                MES_CAPACIDAD = %s,
-                MES_ESTADO = %s
+            UPDATE MESA SET
+                MES_NOMBRE = %s, MES_CAPACIDAD = %s, MES_ESTADO = %s
             WHERE MES_UUID = %s
         """
-
-        values = (
-            data["nombre"],
-            data["capacidad"],
-            data["estado"],
-            uuid
-        )
-
-        c.execute(query, values)
+        c.execute(query, (data["nombre"], data["capacidad"], data["estado"], uuid))
         current_app.mysql.connection.commit()
+        if c.rowcount == 0:
+            c.close()
+            return 404
         c.close()
-
-        return {"Mensaje": "Registro actualizado correctamente"}
-
+        return {"uuid": uuid, **data}
 
     def consult():
         c = current_app.mysql.connection.cursor()
-
-        query = "SELECT * FROM MESA"
-
-        c.execute(query)
-
+        c.execute("SELECT * FROM MESA")
         data = c.fetchall()
-
         c.close()
-
-        x = [ Mesa (w[0], w[1], w[2], w[3]).to_dict() for w in data]
-
-        return x
+        return [Mesa(w[0], w[1], w[2], w[3], w[4]).to_dict() for w in data]
