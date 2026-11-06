@@ -3,6 +3,7 @@ flask-mysqldb
 python-dotenv
 gunicorn
 mysqlclient
+flask-cors
 
 # flask: Crear aplicaciones web (API REST)
 # flask-mysqldb: conectar con bases de datos MySQL
