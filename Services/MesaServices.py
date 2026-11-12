@@ -5,7 +5,7 @@ from Models.Mesa import Mesa
 class MesaServices:
 
     def add(data):
-        uuid_mes = uuid.uuid4()
+        uuid_mes = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO MESA (MES_UUID, MES_NOMBRE, MES_CAPACIDAD, MES_ESTADO)

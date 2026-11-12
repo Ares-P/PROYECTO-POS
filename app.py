@@ -5,6 +5,10 @@ from Routes import loadRoutes
 from flask_cors import CORS
 
 app = Flask(__name__)
+
+# Permite utilizar rutas con o sin barra final
+app.url_map.strict_slashes = False
+
 CORS(app)  # Permite CORS en todas las rutas y orígenes por defecto
 
 app.config.from_object(Config)
@@ -16,4 +20,4 @@ app.mysql = mysql
 loadRoutes(app)
 
 
-# app.run(debug=True, port=3000, host="0.0.0.0")
+app.run(debug=True, port=3000, host="0.0.0.0")

@@ -5,7 +5,7 @@ from Models.Estado_Pedido import Estado_Pedido
 class Estado_PedidoServices:
 
     def add(data):
-        uuid_est_ped = uuid.uuid4()
+        uuid_est_ped = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO ESTADO_PEDIDO (EST_PED_UUID, EST_PED_NOMBRE, EST_PED_DESCRIPCION)

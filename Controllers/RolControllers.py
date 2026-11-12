@@ -6,34 +6,38 @@ class RolControllers:
 
     def consult():
         data = RolServices.consult()
-        return jsonify({"mensaje":data}), 200
+        return jsonify({"mensaje": data}), 200
 
     def add():
         data = request.get_json(silent=True)
-        if not data:
-            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
+        if not data or not isinstance(data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
 
-        requeridos = ["nombre", "descripcion"]
-        falta = [x for x in requeridos if x not in data]
+        requeridos = ['nombre', 'descripcion']
+        falta = [campo for campo in requeridos if campo not in data or data[campo] is None or (isinstance(data[campo], str) and not data[campo].strip())]
         if falta:
-            return jsonify({"mensaje": f"Faltan parametros{falta}"}), 400
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
 
-        x = RolServices.add(data)
-        return jsonify({"mensaje": "Se registro correctamente", "data": x}), 200
+        resultado = RolServices.add(data)
+        return jsonify({"mensaje": "Se registro correctamente", "data": resultado}), 200
 
     def update(uuid):
         body_data = request.get_json(silent=True)
-        if not body_data:
-            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
+        if not body_data or not isinstance(body_data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
 
-        result = RolServices.update(uuid, body_data)
-        if result == 404:
-            return jsonify({"Mensaje": "no se encontro el rol"}), 404
-        return jsonify({"mensaje": "Rol actualizado correctamente", "data": result}), 200
+        requeridos = ['nombre', 'descripcion']
+        falta = [campo for campo in requeridos if campo not in body_data or body_data[campo] is None or (isinstance(body_data[campo], str) and not body_data[campo].strip())]
+        if falta:
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
+
+        resultado = RolServices.update(uuid, body_data)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró rol"}), 404
+        return jsonify({"mensaje": "Rol actualizado correctamente", "data": resultado}), 200
 
     def delete(uuid):
-        x = RolServices.delete(uuid)
-        if x == 404:
-            return jsonify({"Mensaje": "no se encontro el rol"}), x
-        else:
-            return jsonify({"mensaje": "Rol eliminado correctamente"}), x
+        resultado = RolServices.delete(uuid)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró rol"}), 404
+        return jsonify({"mensaje": "Rol eliminado correctamente"}), 200

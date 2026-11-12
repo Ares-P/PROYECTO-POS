@@ -6,26 +6,38 @@ class Movimiento_CajaControllers:
 
     def consult():
         data = Movimiento_CajaServices.consult()
-        return jsonify({"Mensaje": "Listado de movimientos de caja", "data": data}), 200
+        return jsonify({"mensaje": data}), 200
 
     def create():
-        body_data = request.get_json()
-        result = Movimiento_CajaServices.add(body_data)
-        return jsonify({"Mensaje": "Movimiento de caja creado correctamente", "data": result}), 201
+        data = request.get_json(silent=True)
+        if not data or not isinstance(data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
+
+        requeridos = ['tipo_movimiento', 'monto', 'descripcion', 'fecha_hora', 'caj_id']
+        falta = [campo for campo in requeridos if campo not in data or data[campo] is None or (isinstance(data[campo], str) and not data[campo].strip())]
+        if falta:
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
+
+        resultado = Movimiento_CajaServices.add(data)
+        return jsonify({"mensaje": "Movimiento de caja creado correctamente", "data": resultado}), 201
 
     def update(uuid):
         body_data = request.get_json(silent=True)
-        if not body_data:
-            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
+        if not body_data or not isinstance(body_data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
 
-        result = Movimiento_CajaServices.update(uuid, body_data)
-        if result == 404:
-            return jsonify({"Mensaje": "no se encontro movimiento de caja"}), 404
-        return jsonify({"mensaje": "Movimiento de caja actualizado correctamente", "data": result}), 200
+        requeridos = ['tipo_movimiento', 'monto', 'descripcion', 'fecha_hora', 'caj_id']
+        falta = [campo for campo in requeridos if campo not in body_data or body_data[campo] is None or (isinstance(body_data[campo], str) and not body_data[campo].strip())]
+        if falta:
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
+
+        resultado = Movimiento_CajaServices.update(uuid, body_data)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró movimiento de caja"}), 404
+        return jsonify({"mensaje": "Movimiento de caja actualizado correctamente", "data": resultado}), 200
 
     def delete(uuid):
-        x = Movimiento_CajaServices.delete(uuid)
-        if x == 404:
-            return jsonify({"Mensaje": "no se encontro movimiento de caja"}), x
-        else:
-            return jsonify({"mensaje": "Movimiento de caja eliminado correctamente"}), x
+        resultado = Movimiento_CajaServices.delete(uuid)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró movimiento de caja"}), 404
+        return jsonify({"mensaje": "Movimiento de caja eliminado correctamente"}), 200

@@ -5,7 +5,7 @@ from Models.Pedido import Pedido
 class PedidoServices:
 
     def add(data):
-        uuid_ped = uuid.uuid4()
+        uuid_ped = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO PEDIDO

@@ -5,7 +5,7 @@ from Models.Pago import Pago
 class PagoServices:
 
     def add(data):
-        uuid_pag = uuid.uuid4()
+        uuid_pag = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO PAGO

@@ -6,26 +6,38 @@ class UsuarioControllers:
 
     def consult():
         data = UsuarioServices.consult()
-        return jsonify(data), 200
+        return jsonify({"mensaje": data}), 200
 
     def create():
-        body_data = request.get_json()
-        result = UsuarioServices.add(body_data)
-        return jsonify({"Mensaje": "Usuario creado correctamente", "data": result}), 201
+        data = request.get_json(silent=True)
+        if not data or not isinstance(data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
+
+        requeridos = ['nombre', 'usuario', 'contrasena', 'estado', 'rol_id']
+        falta = [campo for campo in requeridos if campo not in data or data[campo] is None or (isinstance(data[campo], str) and not data[campo].strip())]
+        if falta:
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
+
+        resultado = UsuarioServices.add(data)
+        return jsonify({"mensaje": "Usuario creado correctamente", "data": resultado}), 201
 
     def update(uuid):
         body_data = request.get_json(silent=True)
-        if not body_data:
-            return jsonify({"Mensaje": "el cuerpo esta vacio o invalido"}), 400
+        if not body_data or not isinstance(body_data, dict):
+            return jsonify({"mensaje": "El cuerpo está vacío o no contiene un JSON válido"}), 400
 
-        result = UsuarioServices.update(uuid, body_data)
-        if result == 404:
-            return jsonify({"Mensaje": "no se encontro el usuario"}), 404
-        return jsonify({"mensaje": "Usuario actualizado correctamente", "data": result}), 200
+        requeridos = ['nombre', 'usuario', 'contrasena', 'estado', 'rol_id']
+        falta = [campo for campo in requeridos if campo not in body_data or body_data[campo] is None or (isinstance(body_data[campo], str) and not body_data[campo].strip())]
+        if falta:
+            return jsonify({"mensaje": f"Faltan parámetros obligatorios: {falta}"}), 400
+
+        resultado = UsuarioServices.update(uuid, body_data)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró usuario"}), 404
+        return jsonify({"mensaje": "Usuario actualizado correctamente", "data": resultado}), 200
 
     def delete(uuid):
-        x = UsuarioServices.delete(uuid)
-        if x == 404:
-            return jsonify({"Mensaje": "no se encontro el usuario"}), x
-        else:
-            return jsonify({"mensaje": "Usuario eliminado correctamente"}), x
+        resultado = UsuarioServices.delete(uuid)
+        if resultado == 404:
+            return jsonify({"mensaje": "No se encontró usuario"}), 404
+        return jsonify({"mensaje": "Usuario eliminado correctamente"}), 200

@@ -5,7 +5,7 @@ from Models.Usuario import Usuario
 class UsuarioServices:
 
     def add(data):
-        uuid_usu = uuid.uuid4()
+        uuid_usu = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO USUARIO

@@ -5,7 +5,7 @@ from Models.Producto import Producto
 class ProductoServices:
 
     def add(data):
-        uuid_pro = uuid.uuid4()
+        uuid_pro = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO PRODUCTO

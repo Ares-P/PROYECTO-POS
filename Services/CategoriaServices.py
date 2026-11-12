@@ -5,7 +5,7 @@ from Models.Categoria import Categoria
 class CategoriaServices:
 
     def add(data):
-        uuid_cat = uuid.uuid4()
+        uuid_cat = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO CATEGORIA (CAT_UUID, CAT_NOMBRE, CAT_DESCRIPCION, CAT_ESTADO)

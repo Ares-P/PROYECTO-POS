@@ -5,7 +5,7 @@ from Models.Metodo_pago import Metodo_pago
 class Metodo_pagoServices:
 
     def add(data):
-        uuid_met_pag = uuid.uuid4()
+        uuid_met_pag = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO METODO_PAGO (MET_PAG_UUID, MET_PAG_NOMBRE, MET_PAG_ESTADO, MET_PAG_DESCRIPCION)

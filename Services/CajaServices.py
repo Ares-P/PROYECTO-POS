@@ -5,7 +5,7 @@ from Models.Caja import Caja
 class CajaServices:
 
     def add(data):
-        uuid_caj = uuid.uuid4()
+        uuid_caj = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
 
         query = """

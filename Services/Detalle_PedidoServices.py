@@ -5,7 +5,7 @@ from Models.Detalle_Pedido import Detalle_Pedido
 class Detalle_PedidoServices:
 
     def add(data):
-        uuid_det_ped = uuid.uuid4()
+        uuid_det_ped = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO DETALLE_PEDIDO

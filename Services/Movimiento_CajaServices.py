@@ -5,7 +5,7 @@ from Models.Movimiento_Caja import Movimiento_Caja
 class Movimiento_CajaServices:
 
     def add(data):
-        uuid_mov_caj = uuid.uuid4()
+        uuid_mov_caj = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO MOVIMIENTO_CAJA

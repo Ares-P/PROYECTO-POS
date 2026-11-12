@@ -99,7 +99,7 @@
         }
       }
     },
-    "/productos{id}": {
+    "/productos/{uuid}": {
       "put": {
         "tags": [
           "Productos"
@@ -107,13 +107,14 @@
         "summary": "Actualizar producto",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del producto",
+            "description": "UUID del producto",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -146,13 +147,14 @@
         "summary": "Eliminar producto",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del producto",
+            "description": "UUID del producto",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -203,7 +205,7 @@
         }
       }
     },
-    "/categorias{id}": {
+    "/categorias/{uuid}": {
       "put": {
         "tags": [
           "Categorías"
@@ -211,13 +213,14 @@
         "summary": "Actualizar categoría",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del categoría",
+            "description": "UUID de la categoría",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -250,13 +253,14 @@
         "summary": "Eliminar categoría",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del categoría",
+            "description": "UUID de la categoría",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -307,7 +311,7 @@
         }
       }
     },
-    "/usuarios{id}": {
+    "/usuarios/{uuid}": {
       "put": {
         "tags": [
           "Usuarios"
@@ -315,13 +319,14 @@
         "summary": "Actualizar usuario",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del usuario",
+            "description": "UUID del usuario",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -354,13 +359,14 @@
         "summary": "Eliminar usuario",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del usuario",
+            "description": "UUID del usuario",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -411,7 +417,7 @@
         }
       }
     },
-    "/pedidos{id}": {
+    "/pedidos/{uuid}": {
       "put": {
         "tags": [
           "Pedidos"
@@ -419,13 +425,14 @@
         "summary": "Actualizar pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del pedido",
+            "description": "UUID del pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -458,13 +465,14 @@
         "summary": "Eliminar pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del pedido",
+            "description": "UUID del pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -515,7 +523,7 @@
         }
       }
     },
-    "/pagos{id}": {
+    "/pagos/{uuid}": {
       "put": {
         "tags": [
           "Pagos"
@@ -523,13 +531,14 @@
         "summary": "Actualizar pago",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del pago",
+            "description": "UUID del pago",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -562,13 +571,14 @@
         "summary": "Eliminar pago",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del pago",
+            "description": "UUID del pago",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -619,7 +629,7 @@
         }
       }
     },
-    "/cajas{id}": {
+    "/cajas/{uuid}": {
       "put": {
         "tags": [
           "Cajas"
@@ -627,13 +637,14 @@
         "summary": "Actualizar caja",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del caja",
+            "description": "UUID de la caja",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -666,13 +677,14 @@
         "summary": "Eliminar caja",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del caja",
+            "description": "UUID de la caja",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -723,7 +735,7 @@
         }
       }
     },
-    "/mesas{id}": {
+    "/mesas/{uuid}": {
       "put": {
         "tags": [
           "Mesas"
@@ -731,13 +743,14 @@
         "summary": "Actualizar mesa",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del mesa",
+            "description": "UUID de la mesa",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -770,13 +783,14 @@
         "summary": "Eliminar mesa",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del mesa",
+            "description": "UUID de la mesa",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -827,7 +841,7 @@
         }
       }
     },
-    "/roles{id}": {
+    "/roles/{uuid}": {
       "put": {
         "tags": [
           "Roles"
@@ -835,13 +849,14 @@
         "summary": "Actualizar rol",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del rol",
+            "description": "UUID del rol",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -874,13 +889,14 @@
         "summary": "Eliminar rol",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del rol",
+            "description": "UUID del rol",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -931,7 +947,7 @@
         }
       }
     },
-    "/metodos-pago{id}": {
+    "/metodos-pago/{uuid}": {
       "put": {
         "tags": [
           "Métodos de pago"
@@ -939,13 +955,14 @@
         "summary": "Actualizar método de pago",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del método de pago",
+            "description": "UUID del método de pago",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -978,13 +995,14 @@
         "summary": "Eliminar método de pago",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del método de pago",
+            "description": "UUID del método de pago",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1035,7 +1053,7 @@
         }
       }
     },
-    "/estados-pedido{id}": {
+    "/estados-pedido/{uuid}": {
       "put": {
         "tags": [
           "Estados de pedido"
@@ -1043,13 +1061,14 @@
         "summary": "Actualizar estado de pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del estado de pedido",
+            "description": "UUID del estado de pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1082,13 +1101,14 @@
         "summary": "Eliminar estado de pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del estado de pedido",
+            "description": "UUID del estado de pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1139,7 +1159,7 @@
         }
       }
     },
-    "/detalles-pedido{id}": {
+    "/detalles-pedido/{uuid}": {
       "put": {
         "tags": [
           "Detalles de pedido"
@@ -1147,13 +1167,14 @@
         "summary": "Actualizar detalle de pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del detalle de pedido",
+            "description": "UUID del detalle de pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1186,13 +1207,14 @@
         "summary": "Eliminar detalle de pedido",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del detalle de pedido",
+            "description": "UUID del detalle de pedido",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1243,7 +1265,7 @@
         }
       }
     },
-    "/movimientos-caja{id}": {
+    "/movimientos-caja/{uuid}": {
       "put": {
         "tags": [
           "Movimientos de caja"
@@ -1251,13 +1273,14 @@
         "summary": "Actualizar movimiento de caja",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del movimiento de caja",
+            "description": "UUID del movimiento de caja",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -1290,13 +1313,14 @@
         "summary": "Eliminar movimiento de caja",
         "parameters": [
           {
-            "name": "id",
+            "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "ID del movimiento de caja",
+            "description": "UUID del movimiento de caja",
             "schema": {
-              "type": "integer",
-              "minimum": 1
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],

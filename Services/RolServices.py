@@ -5,7 +5,7 @@ from Models.Rol import Rol
 class RolServices:
 
     def add(data):
-        uuid_rol = uuid.uuid4()
+        uuid_rol = str(uuid.uuid4())
         c = current_app.mysql.connection.cursor()
         query = """
             INSERT INTO ROL (ROL_UUID, ROL_NOMBRE, ROL_DESCRIPCION)
